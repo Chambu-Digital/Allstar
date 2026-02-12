@@ -114,33 +114,18 @@ export default function FlashDealsSection() {
   const displayDeals: (IProduct | FeaturedDeal)[] = deals.length > 0 ? deals : featuredDeals
 
   return (
-    <section className="py-8 md:py-12 px-4 md:px-8 bg-gradient-to-r from-red-50 to-orange-50">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground ">
-              Flash Deals
-            </h2>
-          </div>
-          
-          {/* Compact Timer */}
-          <div className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-full text-sm">
-            <Clock className="w-4 h-4" />
-            <span>{String(hours).padStart(2, '0')}:{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}</span>
-          </div>
-        </div>
-
-        {/* Deals Grid - Simplified */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <section className="py-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Deals Grid - Clean & Minimal */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {loading ? (
             // Loading skeleton
             Array(4).fill(0).map((_, index) => (
-              <div key={index} className="bg-card rounded-xl overflow-hidden shadow-sm animate-pulse">
-                <div className="bg-muted h-40" />
-                <div className="p-4 space-y-2">
-                  <div className="h-3 bg-muted rounded w-full" />
-                  <div className="h-3 bg-muted rounded w-16" />
+              <div key={index} className="bg-white rounded-lg overflow-hidden shadow-sm animate-pulse border border-gray-100">
+                <div className="bg-gray-200 h-48" />
+                <div className="p-3 space-y-2">
+                  <div className="h-3 bg-gray-200 rounded w-full" />
+                  <div className="h-4 bg-gray-200 rounded w-20" />
                 </div>
               </div>
             ))
@@ -169,33 +154,33 @@ export default function FlashDealsSection() {
 
               return (
                 <Link key={dealId} href={`/product/${dealSlug}`} className="group">
-                  <div className="bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-border/50">
+                  <div className="bg-white rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 border-2 border-gray-100 hover:border-orange-300">
                     {/* Image */}
-                    <div className="relative overflow-hidden bg-muted">
+                    <div className="relative overflow-hidden bg-gray-50">
                       <img
                         src={dealImage}
                         alt={dealName}
-                        className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                       />
                       {/* Discount Badge */}
-                      <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-md text-xs font-semibold">
+                      <div className="absolute top-3 right-3 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
                         -{dealDiscount}%
                       </div>
                     </div>
 
                     {/* Content */}
                     <div className="p-4">
-                      <h3 className="font-semibold text-sm text-card-foreground mb-2 line-clamp-2 leading-tight">
+                      <h3 className="font-bold text-sm text-gray-900 mb-2 line-clamp-2 leading-tight group-hover:text-orange-600 transition-colors">
                         {dealName}
                       </h3>
                       
-                      <div className="flex items-center gap-2">
-                        <span className="text-lg font-bold text-red-600">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-xl font-black text-orange-600">
                           KSH {dealPrice.toLocaleString()}
                         </span>
                         {dealOldPrice && (
-                          <span className="text-sm line-through text-muted-foreground">
-                            KSH {dealOldPrice.toLocaleString()}
+                          <span className="text-xs line-through text-gray-400">
+                            {dealOldPrice.toLocaleString()}
                           </span>
                         )}
                       </div>
@@ -205,15 +190,6 @@ export default function FlashDealsSection() {
               )
             })
           )}
-        </div>
-
-        {/* Simple Call to Action */}
-        <div className="text-center">
-          <Link href="/products">
-            <Button className="px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg">
-              View All Deals
-            </Button>
-          </Link>
         </div>
       </div>
     </section>

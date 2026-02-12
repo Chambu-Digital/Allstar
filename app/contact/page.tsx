@@ -1,294 +1,201 @@
 'use client'
 
-import { useState } from 'react'
-import { MessageCircle, Mail, Phone, MapPin, Clock } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, MessageCircle, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import Breadcrumb from '@/components/breadcrumb'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
-import { useToast } from '@/components/ui/custom-toast'
-import Link from 'next/link'
 import { companyInfo, getWhatsAppLink, getPhoneLink, getEmailLink } from '@/lib/company-info'
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  })
-  const toast = useToast()
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Form submitted:', formData)
-    toast.success('Thank you for your message! We will get back to you soon.')
-    setFormData({ name: '', email: '', subject: '', message: '' })
-  }
-
-  const handleWhatsAppClick = () => {
-    const message = `Hello Allstar Tech!
-
-I am interested in getting in touch with your store. Please let me know how I can get more information about your products and services.
-
-Thank you!`
-    
-    window.open(getWhatsAppLink(message), '_blank')
-  }
-
-  const contactInfo = [
-    {
-      icon: Phone,
-      title: 'Call Us',
-      details: companyInfo.phone,
-      link: getPhoneLink(),
-      color: 'text-blue-600'
-    },
-    {
-      icon: MessageCircle,
-      title: 'WhatsApp',
-      details: companyInfo.phone,
-      link: getWhatsAppLink(),
-      color: 'text-green-600'
-    },
-    {
-      icon: Mail,
-      title: 'Email Us',
-      details: companyInfo.email,
-      link: getEmailLink(),
-      color: 'text-purple-600'
-    },
-    {
-      icon: MapPin,
-      title: 'Visit Us',
-      details: companyInfo.address,
-      link: '#',
-      color: 'text-orange-600'
-    },
-  ]
-
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Contact', href: '/contact' }
   ]
 
   return (
-    <div className="flex flex-col min-h-screen bg-background relative">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
 
-      <main className="flex-1">
-        {/* Breadcrumb */}
-        <div className="py-4 px-4 md:px-8 bg-muted/30">
-          <div className="max-w-6xl mx-auto">
-            <Breadcrumb items={breadcrumbItems} />
-          </div>
-        </div>
-
-        {/* Hero Section */}
-        <section className="py-8 md:py-12 px-4 md:px-8 bg-primary/10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Get in <span className="font-black uppercase tracking-wide">Touch</span>
-            </h1>
-            <p className="text-muted-foreground">
-              Questions about our products? Need support? We're here to help!
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-teal-600 to-teal-700 text-white">
+        <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-black mb-4">Get In Touch</h1>
+            <p className="text-xl text-teal-100 max-w-2xl mx-auto">
+              Have questions? We're here to help. Reach out to our team today.
             </p>
           </div>
-        </section>
+        </div>
+      </div>
 
-        {/* Contact Info Cards */}
-        <section className="py-8 md:py-12 px-4 md:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-              {contactInfo.map((info, index) => {
-                const Icon = info.icon
-                return (
-                  <a
-                    key={index}
-                    href={info.link}
-                    target={info.link.startsWith('http') ? '_blank' : undefined}
-                    className="bg-card rounded-lg p-4 text-center border border-border hover:shadow-lg transition group"
+      <main className="flex-1 py-12 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto">
+          <Breadcrumb items={breadcrumbItems} />
+
+          <div className="grid lg:grid-cols-3 gap-8 mt-8">
+            {/* Contact Information */}
+            <div className="lg:col-span-1 space-y-6">
+              <div className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
+                <h2 className="text-2xl font-black text-gray-900 mb-6">Contact Information</h2>
+                
+                <div className="space-y-6">
+                  <a 
+                    href={getPhoneLink()} 
+                    className="flex items-start gap-4 p-4 rounded-lg hover:bg-teal-50 transition-colors group"
                   >
-                    <Icon className={`w-6 h-6 ${info.color} mx-auto mb-2 group-hover:scale-110 transition-transform`} />
-                    <h3 className="font-semibold text-card-foreground mb-1 text-sm">
-                      {info.title}
-                    </h3>
-                    <p className="text-xs text-muted-foreground">{info.details}</p>
+                    <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-teal-200 transition-colors">
+                      <Phone className="w-6 h-6 text-teal-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-900 mb-1">Call Us</h3>
+                      <p className="text-sm text-gray-600">{companyInfo.phone}</p>
+                      <p className="text-xs text-gray-500 mt-1">Mon-Sat: 8AM-6PM</p>
+                    </div>
                   </a>
-                )
-              })}
+
+                  <a 
+                    href={getWhatsAppLink()} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4 p-4 rounded-lg hover:bg-green-50 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-green-200 transition-colors">
+                      <MessageCircle className="w-6 h-6 text-green-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-900 mb-1">WhatsApp</h3>
+                      <p className="text-sm text-gray-600">Quick Support</p>
+                      <p className="text-xs text-gray-500 mt-1">Instant messaging</p>
+                    </div>
+                  </a>
+
+                  <a 
+                    href={getEmailLink()} 
+                    className="flex items-start gap-4 p-4 rounded-lg hover:bg-orange-50 transition-colors group"
+                  >
+                    <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-orange-200 transition-colors">
+                      <Mail className="w-6 h-6 text-orange-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-900 mb-1">Email Us</h3>
+                      <p className="text-sm text-gray-600">{companyInfo.email}</p>
+                      <p className="text-xs text-gray-500 mt-1">We'll respond within 24hrs</p>
+                    </div>
+                  </a>
+
+                  <div className="flex items-start gap-4 p-4 rounded-lg bg-gray-50">
+                    <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-6 h-6 text-gray-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-900 mb-1">Visit Us</h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        {companyInfo.address}<br />
+                        {companyInfo.city}, {companyInfo.country}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4 p-4 rounded-lg bg-gray-50">
+                    <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Clock className="w-6 h-6 text-gray-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-900 mb-1">Business Hours</h3>
+                      <p className="text-sm text-gray-600">
+                        Mon-Sat: 8:00 AM - 6:00 PM<br />
+                        Sunday: Closed
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Main Content Grid */}
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Contact Form */}
-              <div className="bg-card rounded-lg p-6 border border-border">
-                <h2 className="text-xl font-bold text-card-foreground mb-4">
-                  Send us a Message
-                </h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid md:grid-cols-2 gap-4">
+            {/* Contact Form */}
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-xl p-8 shadow-md border border-gray-200">
+                <h2 className="text-2xl font-black text-gray-900 mb-2">Send Us a Message</h2>
+                <p className="text-gray-600 mb-8">Fill out the form below and we'll get back to you as soon as possible.</p>
+                
+                <form className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium mb-1 text-card-foreground">
-                        Name
+                      <label className="block text-sm font-bold text-gray-700 mb-2">
+                        Your Name *
                       </label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary text-sm"
-                        placeholder="Your name"
+                      <Input 
+                        type="text" 
+                        placeholder="John Doe" 
+                        className="w-full border-2 border-gray-200 focus:border-teal-500 rounded-lg py-3"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-1 text-card-foreground">
-                        Email
+                      <label className="block text-sm font-bold text-gray-700 mb-2">
+                        Email Address *
                       </label>
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary text-sm"
-                        placeholder="your@email.com"
+                      <Input 
+                        type="email" 
+                        placeholder="john@example.com" 
+                        className="w-full border-2 border-gray-200 focus:border-teal-500 rounded-lg py-3"
                         required
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-1 text-card-foreground">
-                      Subject
+                    <label className="block text-sm font-bold text-gray-700 mb-2">
+                      Phone Number
                     </label>
-                    <input
-                      type="text"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary text-sm"
-                      placeholder="What is this about?"
+                    <Input 
+                      type="tel" 
+                      placeholder="0712345678" 
+                      className="w-full border-2 border-gray-200 focus:border-teal-500 rounded-lg py-3"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-2">
+                      Subject *
+                    </label>
+                    <Input 
+                      type="text" 
+                      placeholder="How can we help you?" 
+                      className="w-full border-2 border-gray-200 focus:border-teal-500 rounded-lg py-3"
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-1 text-card-foreground">
-                      Message
+                    <label className="block text-sm font-bold text-gray-700 mb-2">
+                      Message *
                     </label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      rows={4}
-                      className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none text-sm"
-                      placeholder="Tell us what's on your mind..."
+                    <Textarea 
+                      placeholder="Tell us more about your inquiry..." 
+                      rows={6}
+                      className="w-full border-2 border-gray-200 focus:border-teal-500 rounded-lg resize-none"
                       required
                     />
                   </div>
 
-                  <Button
-                    type="submit"
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3"
+                  <Button 
+                    type="submit" 
+                    size="lg"
+                    className="w-full md:w-auto bg-teal-600 hover:bg-teal-700 text-white px-8 py-6 font-bold shadow-lg hover:shadow-xl transition-all"
                   >
+                    <Send className="w-5 h-5 mr-2" />
                     Send Message
                   </Button>
                 </form>
               </div>
-
-              {/* Store Info & FAQ */}
-              <div className="space-y-6">
-                {/* Store Hours */}
-                <div className="bg-card rounded-lg p-6 border border-border">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Clock className="w-5 h-5 text-primary" />
-                    <h3 className="font-semibold text-card-foreground">Store Hours</h3>
-                  </div>
-                  <div className="space-y-2 text-sm text-muted-foreground">
-                    <div className="flex justify-between">
-                      <span>Monday - Saturday</span>
-                      <span>8:00 AM - 6:00 PM</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Sunday</span>
-                      <span>Closed</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Quick FAQ */}
-                <div className="bg-card rounded-lg p-6 border border-border">
-                  <h3 className="font-semibold text-card-foreground mb-4">Quick Answers</h3>
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="font-medium text-card-foreground mb-1 text-sm">
-                        Free Delivery?
-                      </h4>
-                      <p className="text-xs text-muted-foreground">
-                        Yes! Free delivery within Nairobi for orders above KSh 10,000.
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-card-foreground mb-1 text-sm">
-                        Installation Service?
-                      </h4>
-                      <p className="text-xs text-muted-foreground">
-                        Professional setup and installation available for computers and equipment.
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-card-foreground mb-1 text-sm">
-                        Warranty Support?
-                      </h4>
-                      <p className="text-xs text-muted-foreground">
-                        All products come with manufacturer warranties and our support.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* CTA */}
-                <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-6 border border-primary/20 text-center">
-                  <h3 className="font-semibold text-foreground mb-2">
-                    Ready to Shop?
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Browse our latest computers and electronics
-                  </p>
-                  <Link href="/products">
-                    <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2">
-                      Shop Now
-                    </Button>
-                  </Link>
-                </div>
-              </div>
             </div>
           </div>
-        </section>
-      </main>
-
-      {/* Floating WhatsApp Button */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <button
-          onClick={handleWhatsAppClick}
-          className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group animate-pulse hover:animate-none"
-          title="Chat with us on WhatsApp"
-        >
-          <MessageCircle className="w-6 h-6 group-hover:scale-110 transition-transform" />
-        </button>
-        
-        {/* Tooltip */}
-        <div className="absolute bottom-full right-0 mb-2 px-3 py-1 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-          Chat with Allstar Tech
-          <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
         </div>
-      </div>
+      </main>
 
       <Footer />
     </div>
