@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
       .select('_id name slug description price oldPrice images hasVariants variants category inStock stockQuantity tags')
       .lean()
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://electromatt.co.ke'
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://allstar.co.ke'
     const currentDate = new Date().toISOString()
 
     // Build XML feed

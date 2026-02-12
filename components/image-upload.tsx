@@ -17,7 +17,7 @@ export default function ImageUpload({
   onUpload, 
   onRemove, 
   currentImage, 
-  watermarkText = '© Serenleaf Natural',
+  watermarkText = '© Allstar Tech',
   className = '' 
 }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false)

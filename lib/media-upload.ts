@@ -104,6 +104,6 @@ export function getOptimizedImageUrl(originalUrl: string, width?: number, height
 }
 
 // Utility function to generate watermark text
-export function generateWatermark(productName: string, brandName: string = 'Serenleaf'): string {
+export function generateWatermark(productName: string, brandName: string = 'Allstar Tech'): string {
   return `© ${brandName} - ${productName}`
 }

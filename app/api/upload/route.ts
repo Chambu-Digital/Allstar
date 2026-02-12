@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get watermark parameters
-    const watermarkText = formData.get('watermark_text') as string || '© Serenleaf Natural'
+    const watermarkText = formData.get('watermark_text') as string || '© Allstar Tech'
     const watermarkPosition = formData.get('watermark_position') as string || 'bottom-right'
     const watermarkOpacity = parseFloat(formData.get('watermark_opacity') as string || '0.7')
 

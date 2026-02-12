@@ -157,7 +157,7 @@ async function seedAdmin() {
     await connectDB()
 
     // Check if admin already exists
-    const existingAdmin = await User.findOne({ email: 'admin@electromatt.co.ke' })
+    const existingAdmin = await User.findOne({ email: 'admin@allstartech.co.ke' })
     
     if (existingAdmin) {
       console.log('Admin user already exists!')
@@ -178,9 +178,9 @@ async function seedAdmin() {
       console.log('Creating admin user...')
       
       const adminUser = new User({
-        firstName: 'Electromatt',
+        firstName: 'Allstar Tech',
         lastName: 'Admin',
-        email: 'admin@electromatt.co.ke',
+        email: 'admin@allstartech.co.ke',
         password: 'admin123', // Will be hashed by the pre-save hook
         phone: '+254713065412',
         role: 'super_admin',
@@ -195,7 +195,7 @@ async function seedAdmin() {
     }
 
     console.log('\n=== ADMIN USER DETAILS ===')
-    const admin = await User.findOne({ email: 'admin@electromatt.co.ke' }).select('-password')
+    const admin = await User.findOne({ email: 'admin@allstartech.co.ke' }).select('-password')
     console.log('ID:', admin._id)
     console.log('Name:', admin.firstName, admin.lastName)
     console.log('Email:', admin.email)
@@ -208,7 +208,7 @@ async function seedAdmin() {
 
     console.log('\n✅ Admin seeding completed successfully!')
     console.log('You can now login with:')
-    console.log('Email: admin@electromatt.co.ke')
+    console.log('Email: admin@allstartech.co.ke')
     console.log('Password: admin123')
 
   } catch (error) {

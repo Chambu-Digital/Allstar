@@ -50,7 +50,7 @@ export const initiateMpesaPayment = async (details: PaymentDetails) => {
 export const getBankTransferDetails = (): BankTransferDetails => {
   return {
     bankName: 'Equity Bank Kenya',
-    accountName: 'Serenleaf Natural',
+    accountName: 'Allstar Tech',
     accountNumber: process.env.NEXT_PUBLIC_BANK_ACCOUNT || '0712345678',
     swiftCode: 'EQBLKENA',
   }
@@ -88,7 +88,7 @@ export const sendWhatsAppOrder = (
   amount: number,
   businessPhone: string = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '254712345678'
 ) => {
-  const message = `Hi Serenleaf,\n\nI would like to place an order:\n\nCustomer Name: ${customerName}\nPhone: ${customerPhone}\n\nOrder Details:\n${orderDetails}\n\nTotal Amount: KSH ${amount.toFixed(2)}\n\nPlease confirm my order.`
+  const message = `Hi Allstar Tech,\n\nI would like to place an order:\n\nCustomer Name: ${customerName}\nPhone: ${customerPhone}\n\nOrder Details:\n${orderDetails}\n\nTotal Amount: KSH ${amount.toFixed(2)}\n\nPlease confirm my order.`
   
   const encodedMessage = encodeURIComponent(message)
   const whatsappLink = `https://wa.me/${businessPhone}?text=${encodedMessage}`

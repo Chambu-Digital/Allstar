@@ -384,7 +384,7 @@ export default function VariantManager({ variants, onVariantsChange }: VariantMa
                 onUpload={(imageUrl) => setFormData(prev => ({ ...prev, image: imageUrl }))}
                 onRemove={() => setFormData(prev => ({ ...prev, image: '' }))}
                 currentImage={formData.image}
-                watermarkText="© Serenleaf Natural"
+                watermarkText="© Allstar Tech"
               />
             </div>
 

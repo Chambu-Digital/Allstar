@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     const {
       customerName,
       customerPhone,
-      customerEmail = 'whatsapp@electromatt.co.ke',
+      customerEmail = 'whatsapp@allstar.co.ke',
       items,
       shippingAddress,
       customerNotes,

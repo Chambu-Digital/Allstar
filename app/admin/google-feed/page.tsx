@@ -12,7 +12,7 @@ export default function GoogleFeedPage() {
   const [copied, setCopied] = useState(false)
   const toast = useToast()
 
-  const feedUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://electromatt.co.ke'}/google-feed.xml`
+  const feedUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://allstar.co.ke'}/google-feed.xml`
 
   const fetchFeedStats = async () => {
     setLoading(true)

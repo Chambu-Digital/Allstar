@@ -37,7 +37,7 @@ const sampleReviews = [
   {
     rating: 5,
     title: "Excellent quality and fast delivery!",
-    comment: "I'm very impressed with this product. The quality is outstanding and it arrived much faster than expected. Highly recommend ELECTROMATT for electronics shopping!",
+    comment: "I'm very impressed with this product. The quality is outstanding and it arrived much faster than expected. Highly recommend Allstar Tech for computer and electronics shopping!",
     customerName: "Sarah M."
   },
   {
@@ -73,7 +73,7 @@ const sampleReviews = [
   {
     rating: 5,
     title: "Highly recommended!",
-    comment: "Amazing product quality and excellent customer service. ELECTROMATT has become my go-to store for electronics. Fast shipping and great prices!",
+    comment: "Amazing product quality and excellent customer service. Allstar Tech has become my go-to store for computers and electronics. Fast shipping and great prices!",
     customerName: "Linda T."
   },
   {
@@ -131,7 +131,7 @@ async function seedSampleReviews() {
             comment: randomReview.comment,
             images: [],
             customerName: randomReview.customerName,
-            customerEmail: 'demo@electromatt.co.ke',
+            customerEmail: 'demo@allstar.co.ke',
             isVerifiedPurchase: Math.random() > 0.3, // 70% verified purchases
             status: 'approved',
             helpfulVotes: Math.floor(Math.random() * 10),

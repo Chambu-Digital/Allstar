@@ -154,8 +154,8 @@ export default function TrackOrderPage() {
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 text-2xl font-bold text-primary mb-4">
-            ELECTROMATT
+          <Link href="/" className="inline-flex items-center gap-2 text-2xl font-bold text-teal-600 mb-4">
+            Allstar Tech
           </Link>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Track Your Order</h1>
           <p className="text-gray-600">Enter your order details to check the status</p>
@@ -239,9 +239,9 @@ export default function TrackOrderPage() {
                     <Phone className="w-4 h-4" />
                     +254 713 065 412
                   </a>
-                  <a href="mailto:support@electromatt.co.ke" className="flex items-center gap-1 hover:text-primary">
+                  <a href="mailto:sales@allstar.co.ke" className="flex items-center gap-1 hover:text-teal-600">
                     <Mail className="w-4 h-4" />
-                    support@electromatt.co.ke
+                    sales@allstar.co.ke
                   </a>
                 </div>
               </div>
