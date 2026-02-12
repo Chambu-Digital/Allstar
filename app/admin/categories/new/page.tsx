@@ -8,7 +8,9 @@ import Link from 'next/link'
 import ImageUpload from '@/components/image-upload'
 
 const iconOptions = [
-  'Flower2', 'Leaf', 'Droplet', 'Wind', 'Soap', 'Heart', 'LeafIcon', 'Gift'
+  'Laptop', 'Monitor', 'Cpu', 'HardDrive', 'Smartphone', 'Tablet', 
+  'Keyboard', 'Mouse', 'Headphones', 'Wifi', 'Printer', 'Camera',
+  'Gamepad2', 'Battery', 'Cable', 'Usb', 'Server', 'Database'
 ]
 
 export default function NewCategoryPage() {
@@ -131,7 +133,7 @@ export default function NewCategoryPage() {
               onUpload={(imageUrl) => setFormData(prev => ({ ...prev, image: imageUrl }))}
               onRemove={() => setFormData(prev => ({ ...prev, image: '' }))}
               currentImage={formData.image}
-              watermarkText="© Serenleaf Natural"
+              watermarkText="© Allstar Tech"
             />
           </div>
 
@@ -157,6 +159,7 @@ export default function NewCategoryPage() {
             <Button
               type="submit"
               disabled={loading || !formData.image}
+              className="bg-teal-600 hover:bg-teal-700 text-white"
             >
               {loading ? 'Creating...' : 'Create Category'}
             </Button>

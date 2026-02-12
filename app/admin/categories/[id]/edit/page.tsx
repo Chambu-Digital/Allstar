@@ -9,14 +9,24 @@ import { ICategory } from '@/models/Category'
 import ImageUpload from '@/components/image-upload'
 
 const iconOptions = [
-  { value: 'Flower2', label: 'Flower' },
-  { value: 'Leaf', label: 'Leaf' },
-  { value: 'Droplet', label: 'Droplet' },
-  { value: 'Wind', label: 'Wind' },
-  { value: 'Soap', label: 'Soap' },
-  { value: 'Heart', label: 'Heart' },
-  { value: 'LeafIcon', label: 'Leaf Icon' },
-  { value: 'Gift', label: 'Gift' },
+  { value: 'Laptop', label: 'Laptop' },
+  { value: 'Monitor', label: 'Monitor' },
+  { value: 'Cpu', label: 'CPU/Processor' },
+  { value: 'HardDrive', label: 'Hard Drive' },
+  { value: 'Smartphone', label: 'Smartphone' },
+  { value: 'Tablet', label: 'Tablet' },
+  { value: 'Keyboard', label: 'Keyboard' },
+  { value: 'Mouse', label: 'Mouse' },
+  { value: 'Headphones', label: 'Headphones' },
+  { value: 'Wifi', label: 'WiFi/Networking' },
+  { value: 'Printer', label: 'Printer' },
+  { value: 'Camera', label: 'Camera' },
+  { value: 'Gamepad2', label: 'Gaming' },
+  { value: 'Battery', label: 'Battery/Power' },
+  { value: 'Cable', label: 'Cable' },
+  { value: 'Usb', label: 'USB' },
+  { value: 'Server', label: 'Server' },
+  { value: 'Database', label: 'Database/Storage' },
 ]
 
 export default function EditCategoryPage({ params }: { params: Promise<{ id: string }> }) {
@@ -168,7 +178,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
                   onUpload={(imageUrl) => setFormData(prev => ({ ...prev, image: imageUrl }))}
                   onRemove={() => setFormData(prev => ({ ...prev, image: '' }))}
                   currentImage={formData.image}
-                  watermarkText="© Serenleaf Natural"
+                  watermarkText="© Allstar Tech"
                 />
 
 
@@ -215,7 +225,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
                 Cancel
               </Button>
             </Link>
-            <Button type="submit" disabled={saving}>
+            <Button type="submit" disabled={saving} className="bg-teal-600 hover:bg-teal-700 text-white">
               {saving ? 'Updating...' : 'Update Category'}
             </Button>
           </div>

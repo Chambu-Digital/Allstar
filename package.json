@@ -1,6 +1,6 @@
 {
-  "name": "my-v0-project",
-  "version": "0.1.0",
+  "name": "allstar-tech",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "build": "next build",
@@ -11,7 +11,9 @@
     "seed:locations": "node scripts/seed-locations.js",
     "seed:admin": "node scripts/seed-admin.js",
     "seed:banners": "node scripts/seed-banners.js",
+    "seed:categories": "node scripts/seed-tech-categories.js",
     "migrate:permissions": "node scripts/migrate-permissions.js",
+    "create-admin": "node scripts/create-super-admin.js",
     "start": "next start"
   },
   "dependencies": {

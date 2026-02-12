@@ -1,4 +1,5 @@
 // WhatsApp integration service
+import { companyInfo } from './company-info'
 
 export interface WhatsAppMessage {
   to: string
@@ -17,7 +18,7 @@ export const generateOrderMessage = (
     .map((item) => `${item.name} (Qty: ${item.quantity}) - KSH ${item.price.toFixed(2)}`)
     .join('\n')
 
-  return `Hello ELECTROMATT Store!
+  return `Hello ${companyInfo.name}!
 
 I would like to place an order:
 
@@ -39,7 +40,7 @@ export const generateInquiryMessage = (
   name: string,
   inquiry: string
 ): string => {
-  return `Hello ELECTROMATT Store!
+  return `Hello ${companyInfo.name}!
 
 I have an inquiry:
 
@@ -55,7 +56,7 @@ export const generateSupportMessage = (
   orderNumber: string,
   issue: string
 ): string => {
-  return `Hello ELECTROMATT Store!
+  return `Hello ${companyInfo.name}!
 
 I need help with my order:
 
@@ -69,7 +70,7 @@ Thank you!`
 
 export const sendWhatsAppMessage = (
   message: string,
-  businessPhone: string = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '254713065412'
+  businessPhone: string = companyInfo.whatsappNumber
 ) => {
   const encodedMessage = encodeURIComponent(message)
   const whatsappLink = `https://wa.me/${businessPhone}?text=${encodedMessage}`
@@ -90,7 +91,7 @@ export const sendWhatsAppOrder = async (
   }>,
   shippingAddress?: { county: string; area: string },
   customerEmail?: string,
-  businessPhone: string = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '254713065412'
+  businessPhone: string = companyInfo.whatsappNumber
 ) => {
   // Generate the WhatsApp message
   const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
@@ -101,7 +102,7 @@ export const sendWhatsAppOrder = async (
     .map((item) => `${item.name} (Qty: ${item.quantity}) - KSH ${item.price.toLocaleString()}`)
     .join('\n')
 
-  const message = `Hello ELECTROMATT Store!
+  const message = `Hello ${companyInfo.name}!
 
 I would like to place an order:
 
@@ -186,7 +187,7 @@ Order Reference: ${data.order.orderNumber}`
 }
 
 export const openWhatsAppChat = (
-  businessPhone: string = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '254713065412'
+  businessPhone: string = companyInfo.whatsappNumber
 ) => {
   const whatsappLink = `https://wa.me/${businessPhone}`
   window.open(whatsappLink, '_blank')
@@ -194,12 +195,12 @@ export const openWhatsAppChat = (
 
 // Business profile information for WhatsApp
 export const BUSINESS_PROFILE = {
-  name: 'ELECTROMATT Store',
-  description: 'Kenya\'s trusted electronics retailer since 2018. Quality appliances, competitive prices, exceptional service.',
-  address: 'Agro House, Moi Avenue, 1st Floor Rm 35, Nairobi, Kenya',
-  phone: '+254 713 065 412',
-  email: 'info@electromatt.co.ke',
-  website: 'https://electromatt.co.ke',
-  businessHours: 'Mon-Fri: 8AM-6PM, Sat: 9AM-5PM, Sun: 10AM-4PM',
-  logo: '/electromatt-icon-only.svg'
+  name: companyInfo.name,
+  description: 'Your trusted technology partner for computers, laptops, and cutting-edge electronics. Quality products, competitive prices, exceptional service.',
+  address: companyInfo.address,
+  phone: companyInfo.phoneFormatted,
+  email: companyInfo.email,
+  website: process.env.NEXT_PUBLIC_BASE_URL || 'https://allstar.co.ke',
+  businessHours: 'Mon-Sat: 8AM-6PM, Sunday: Closed',
+  logo: '/allstar-tech-icon.svg'
 }

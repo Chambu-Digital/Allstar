@@ -173,7 +173,7 @@ export default function ReviewStatsSection() {
       
 
         {/* Trust Indicators */}
-        <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-border/50">
+        {/* <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-border/50">
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold text-foreground mb-4">
               Why Customers Choose Us
@@ -214,7 +214,7 @@ export default function ReviewStatsSection() {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   )

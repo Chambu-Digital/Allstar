@@ -13,9 +13,9 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'ELECTROMATT - Premium Electronics & Appliances',
-  description: 'Your trusted electronics store for fridges, microwaves, TVs, smartphones, and all electronic appliances. Quality products with excellent service.',
-  generator: 'v0.app',
+  title: 'Allstar Tech - Premium Computers & Electronics',
+  description: 'Your trusted technology partner for laptops, desktops, computer accessories, smartphones, and cutting-edge electronics. Quality products with exceptional service.',
+  generator: 'Next.js',
   verification: {
     google: 'KO8RUPFOnU-K9AlHfBWRRcuYQG6jIrs9yihNFWfJ-yY',
   },
@@ -29,11 +29,11 @@ export const metadata: Metadata = {
         type: 'image/svg+xml',
       },
       {
-        url: '/electromatt-icon-only.svg',
+        url: '/allstar-tech-icon.svg',
         type: 'image/svg+xml',
       },
     ],
-    apple: '/electromatt-icon-only.svg',
+    apple: '/allstar-tech-icon.svg',
     shortcut: '/favicon.svg',
   },
 }

@@ -132,7 +132,7 @@ export const useCartStore = create<CartStore>()(
       },
 
       getItemPricing: (item: CartItem) => {
-        const hasWholesale = item.wholesalePrice && item.wholesaleThreshold
+        const hasWholesale = !!(item.wholesalePrice && item.wholesaleThreshold)
         const isWholesale = hasWholesale && item.quantity >= item.wholesaleThreshold!
         const unitPrice = isWholesale ? item.wholesalePrice! : item.price
         const totalPrice = unitPrice * item.quantity

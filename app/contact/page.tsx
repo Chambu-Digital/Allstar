@@ -8,7 +8,7 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { useToast } from '@/components/ui/custom-toast'
 import Link from 'next/link'
-import { openWhatsAppChat } from '@/lib/whatsapp-service'
+import { companyInfo, getWhatsAppLink, getPhoneLink, getEmailLink } from '@/lib/company-info'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -32,43 +32,41 @@ export default function ContactPage() {
   }
 
   const handleWhatsAppClick = () => {
-    const message = `Hello ELECTROMATT Store!
+    const message = `Hello Allstar Tech!
 
 I am interested in getting in touch with your store. Please let me know how I can get more information about your products and services.
 
 Thank you!`
     
-    const encodedMessage = encodeURIComponent(message)
-    const whatsappLink = `https://wa.me/254713065412?text=${encodedMessage}`
-    window.open(whatsappLink, '_blank')
+    window.open(getWhatsAppLink(message), '_blank')
   }
 
   const contactInfo = [
     {
       icon: Phone,
       title: 'Call Us',
-      details: '+254 713 065 412',
-      link: 'tel:+254713065412',
+      details: companyInfo.phone,
+      link: getPhoneLink(),
       color: 'text-blue-600'
     },
     {
       icon: MessageCircle,
       title: 'WhatsApp',
-      details: '+254 713 065 412',
-      link: 'https://wa.me/254713065412',
+      details: companyInfo.phone,
+      link: getWhatsAppLink(),
       color: 'text-green-600'
     },
     {
       icon: Mail,
       title: 'Email Us',
-      details: 'info@electromatt.co.ke',
-      link: 'mailto:info@electromatt.co.ke',
+      details: companyInfo.email,
+      link: getEmailLink(),
       color: 'text-purple-600'
     },
     {
       icon: MapPin,
       title: 'Visit Us',
-      details: 'Agro House, Moi Avenue, 1st Floor Rm 35',
+      details: companyInfo.address,
       link: '#',
       color: 'text-orange-600'
     },
@@ -214,16 +212,12 @@ Thank you!`
                   </div>
                   <div className="space-y-2 text-sm text-muted-foreground">
                     <div className="flex justify-between">
-                      <span>Monday - Friday</span>
+                      <span>Monday - Saturday</span>
                       <span>8:00 AM - 6:00 PM</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Saturday</span>
-                      <span>9:00 AM - 5:00 PM</span>
-                    </div>
-                    <div className="flex justify-between">
                       <span>Sunday</span>
-                      <span>10:00 AM - 4:00 PM</span>
+                      <span>Closed</span>
                     </div>
                   </div>
                 </div>
@@ -245,7 +239,7 @@ Thank you!`
                         Installation Service?
                       </h4>
                       <p className="text-xs text-muted-foreground">
-                        Professional installation available for all major appliances.
+                        Professional setup and installation available for computers and equipment.
                       </p>
                     </div>
                     <div>
@@ -265,7 +259,7 @@ Thank you!`
                     Ready to Shop?
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Browse our latest electronics and appliances
+                    Browse our latest computers and electronics
                   </p>
                   <Link href="/products">
                     <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2">
@@ -291,7 +285,7 @@ Thank you!`
         
         {/* Tooltip */}
         <div className="absolute bottom-full right-0 mb-2 px-3 py-1 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-          Chat with ELECTROMATT
+          Chat with Allstar Tech
           <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
         </div>
       </div>

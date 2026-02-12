@@ -4,116 +4,137 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color palette for Serenleaf Natural - green, brown, and earthy tones */
-  --background: oklch(0.98 0.01 70);
-  --foreground: oklch(0.2 0.02 70);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.02 70);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.02 70);
-  --primary: oklch(0.47 0.15 142);
-  --primary-foreground: oklch(0.98 0.01 70);
-  --secondary: oklch(0.55 0.1 62);
-  --secondary-foreground: oklch(1 0 0);
-  --muted: oklch(0.95 0.01 70);
-  --muted-foreground: oklch(0.55 0.05 70);
-  --accent: oklch(0.50 0.16 142);
-  --accent-foreground: oklch(0.98 0.01 70);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.01 70);
-  --input: oklch(0.98 0.01 70);
-  --ring: oklch(0.47 0.15 142);
-  --chart-1: oklch(0.47 0.15 142);
-  --chart-2: oklch(0.55 0.1 62);
-  --chart-3: oklch(0.65 0.08 140);
-  --chart-4: oklch(0.45 0.12 72);
-  --chart-5: oklch(0.50 0.14 75);
+  /* Allstar Tech color palette - Teal Blue (#0d9488) and Orange (#f97316) theme */
+  --background: 255 255 255;
+  --foreground: 15 23 42;
+  --card: 255 255 255;
+  --card-foreground: 15 23 42;
+  --popover: 255 255 255;
+  --popover-foreground: 15 23 42;
+  
+  /* Primary: Teal Blue */
+  --primary: 13 148 136;
+  --primary-foreground: 255 255 255;
+  
+  /* Secondary: Orange */
+  --secondary: 249 115 22;
+  --secondary-foreground: 255 255 255;
+  
+  --muted: 241 245 249;
+  --muted-foreground: 100 116 139;
+  --accent: 13 148 136;
+  --accent-foreground: 255 255 255;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: 226 232 240;
+  --input: 226 232 240;
+  --ring: 13 148 136;
+  
+  /* Charts - Mix of teal and orange */
+  --chart-1: 13 148 136;
+  --chart-2: 249 115 22;
+  --chart-3: 20 184 166;
+  --chart-4: 251 146 60;
+  --chart-5: 45 212 191;
+  
   --radius: 0.625rem;
-  --sidebar: oklch(0.98 0.01 70);
-  --sidebar-foreground: oklch(0.2 0.02 70);
-  --sidebar-primary: oklch(0.47 0.15 142);
-  --sidebar-primary-foreground: oklch(0.98 0.01 70);
-  --sidebar-accent: oklch(0.55 0.1 62);
-  --sidebar-accent-foreground: oklch(1 0 0);
-  --sidebar-border: oklch(0.92 0.01 70);
-  --sidebar-ring: oklch(0.47 0.15 142);
+  
+  /* Sidebar */
+  --sidebar: 255 255 255;
+  --sidebar-foreground: 15 23 42;
+  --sidebar-primary: 13 148 136;
+  --sidebar-primary-foreground: 255 255 255;
+  --sidebar-accent: 249 115 22;
+  --sidebar-accent-foreground: 255 255 255;
+  --sidebar-border: 226 232 240;
+  --sidebar-ring: 13 148 136;
 }
 
 .dark {
-  --background: oklch(0.15 0.02 70);
-  --foreground: oklch(0.95 0.01 70);
-  --card: oklch(0.2 0.02 70);
-  --card-foreground: oklch(0.95 0.01 70);
-  --popover: oklch(0.2 0.02 70);
-  --popover-foreground: oklch(0.95 0.01 70);
-  --primary: oklch(0.55 0.16 142);
-  --primary-foreground: oklch(0.15 0.02 70);
-  --secondary: oklch(0.60 0.12 62);
-  --secondary-foreground: oklch(0.15 0.02 70);
-  --muted: oklch(0.3 0.02 70);
-  --muted-foreground: oklch(0.65 0.08 70);
-  --accent: oklch(0.58 0.18 142);
-  --accent-foreground: oklch(0.15 0.02 70);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.3 0.02 70);
-  --input: oklch(0.25 0.02 70);
-  --ring: oklch(0.55 0.16 142);
-  --chart-1: oklch(0.55 0.16 142);
-  --chart-2: oklch(0.60 0.12 62);
-  --chart-3: oklch(0.65 0.08 140);
-  --chart-4: oklch(0.50 0.14 72);
-  --chart-5: oklch(0.55 0.16 75);
-  --sidebar: oklch(0.2 0.02 70);
-  --sidebar-foreground: oklch(0.95 0.01 70);
-  --sidebar-primary: oklch(0.55 0.16 142);
-  --sidebar-primary-foreground: oklch(0.95 0.01 70);
-  --sidebar-accent: oklch(0.60 0.12 62);
-  --sidebar-accent-foreground: oklch(0.15 0.02 70);
-  --sidebar-border: oklch(0.3 0.02 70);
-  --sidebar-ring: oklch(0.55 0.16 142);
+  --background: 15 23 42;
+  --foreground: 248 250 252;
+  --card: 30 41 59;
+  --card-foreground: 248 250 252;
+  --popover: 30 41 59;
+  --popover-foreground: 248 250 252;
+  
+  /* Primary: Lighter Teal Blue for dark mode */
+  --primary: 20 184 166;
+  --primary-foreground: 15 23 42;
+  
+  /* Secondary: Lighter Orange for dark mode */
+  --secondary: 251 146 60;
+  --secondary-foreground: 15 23 42;
+  
+  --muted: 51 65 85;
+  --muted-foreground: 148 163 184;
+  --accent: 20 184 166;
+  --accent-foreground: 15 23 42;
+  --destructive: 220 38 38;
+  --destructive-foreground: 248 250 252;
+  --border: 51 65 85;
+  --input: 51 65 85;
+  --ring: 20 184 166;
+  
+  /* Charts - Mix of teal and orange for dark mode */
+  --chart-1: 20 184 166;
+  --chart-2: 251 146 60;
+  --chart-3: 45 212 191;
+  --chart-4: 253 186 116;
+  --chart-5: 94 234 212;
+  
+  /* Sidebar */
+  --sidebar: 30 41 59;
+  --sidebar-foreground: 248 250 252;
+  --sidebar-primary: 20 184 166;
+  --sidebar-primary-foreground: 15 23 42;
+  --sidebar-accent: 251 146 60;
+  --sidebar-accent-foreground: 15 23 42;
+  --sidebar-border: 51 65 85;
+  --sidebar-ring: 20 184 166;
 }
 
 @theme inline {
   --font-sans: 'Geist', 'Geist Fallback';
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
+  
+  /* Using RGB format for Tailwind v4 */
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+  --color-card: rgb(var(--card));
+  --color-card-foreground: rgb(var(--card-foreground));
+  --color-popover: rgb(var(--popover));
+  --color-popover-foreground: rgb(var(--popover-foreground));
+  --color-primary: rgb(var(--primary));
+  --color-primary-foreground: rgb(var(--primary-foreground));
+  --color-secondary: rgb(var(--secondary));
+  --color-secondary-foreground: rgb(var(--secondary-foreground));
+  --color-muted: rgb(var(--muted));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+  --color-accent: rgb(var(--accent));
+  --color-accent-foreground: rgb(var(--accent-foreground));
+  --color-destructive: rgb(var(--destructive));
+  --color-destructive-foreground: rgb(var(--destructive-foreground));
+  --color-border: rgb(var(--border));
+  --color-input: rgb(var(--input));
+  --color-ring: rgb(var(--ring));
+  --color-chart-1: rgb(var(--chart-1));
+  --color-chart-2: rgb(var(--chart-2));
+  --color-chart-3: rgb(var(--chart-3));
+  --color-chart-4: rgb(var(--chart-4));
+  --color-chart-5: rgb(var(--chart-5));
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar: rgb(var(--sidebar));
+  --color-sidebar-foreground: rgb(var(--sidebar-foreground));
+  --color-sidebar-primary: rgb(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: rgb(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: rgb(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: rgb(var(--sidebar-accent-foreground));
+  --color-sidebar-border: rgb(var(--sidebar-border));
+  --color-sidebar-ring: rgb(var(--sidebar-ring));
 }
 
 @layer base {
@@ -144,5 +165,50 @@
   .min-h-screen {
     min-height: 100vh;
     min-height: 100dvh; /* Dynamic viewport height for mobile */
+  }
+  
+  /* Teal Blue utilities */
+  .bg-teal {
+    background-color: rgb(13 148 136);
+  }
+  .text-teal {
+    color: rgb(13 148 136);
+  }
+  .border-teal {
+    border-color: rgb(13 148 136);
+  }
+  .hover\:bg-teal:hover {
+    background-color: rgb(13 148 136);
+  }
+  .hover\:text-teal:hover {
+    color: rgb(13 148 136);
+  }
+  
+  /* Orange utilities */
+  .bg-orange {
+    background-color: rgb(249 115 22);
+  }
+  .text-orange {
+    color: rgb(249 115 22);
+  }
+  .border-orange {
+    border-color: rgb(249 115 22);
+  }
+  .hover\:bg-orange:hover {
+    background-color: rgb(249 115 22);
+  }
+  .hover\:text-orange:hover {
+    color: rgb(249 115 22);
+  }
+  
+  /* Gradient utilities */
+  .bg-gradient-teal-orange {
+    background: linear-gradient(135deg, rgb(13 148 136) 0%, rgb(249 115 22) 100%);
+  }
+  .bg-gradient-teal {
+    background: linear-gradient(135deg, rgb(13 148 136) 0%, rgb(20 184 166) 100%);
+  }
+  .bg-gradient-orange {
+    background: linear-gradient(135deg, rgb(249 115 22) 0%, rgb(251 146 60) 100%);
   }
 }

@@ -9,21 +9,26 @@ const adminRequestSchema = z.object({
   firstName: z.string().min(1, 'First name is required').trim(),
   lastName: z.string().min(1, 'Last name is required').trim(),
   email: z.string().email('Invalid email address').toLowerCase().trim(),
-  password: z.string().min(6, 'Password must be at least 6 characters')
-})
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+  confirmPassword: z.string().optional() // Accept but ignore confirmPassword
+}).transform(({ confirmPassword, ...rest }) => rest) // Remove confirmPassword from the data
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
+    console.log('Received admin request:', { ...body, password: '[REDACTED]' })
     
     // Validate input
     const validatedData = adminRequestSchema.parse(body)
+    console.log('Validated data:', { ...validatedData, password: '[REDACTED]' })
     
     await connectDB()
+    console.log('Database connected')
     
     // Check if request already exists for this email
     const existingRequest = await AdminRequest.findOne({ email: validatedData.email })
     if (existingRequest) {
+      console.log('Duplicate request found for email:', validatedData.email)
       return NextResponse.json(
         { error: 'A request with this email already exists' },
         { status: 400 }
@@ -33,6 +38,7 @@ export async function POST(request: NextRequest) {
     // Hash password
     const salt = await bcrypt.genSalt(12)
     const hashedPassword = await bcrypt.hash(validatedData.password, salt)
+    console.log('Password hashed successfully')
     
     // Create admin request
     const adminRequest = new AdminRequest({
@@ -41,6 +47,7 @@ export async function POST(request: NextRequest) {
     })
     
     await adminRequest.save()
+    console.log('Admin request saved successfully:', adminRequest._id)
     
     return NextResponse.json({
       message: 'Admin request submitted successfully',
@@ -49,8 +56,10 @@ export async function POST(request: NextRequest) {
     
   } catch (error: any) {
     console.error('Admin request error:', error)
+    console.error('Error stack:', error.stack)
     
     if (error.name === 'ZodError') {
+      console.error('Validation errors:', error.errors)
       return NextResponse.json(
         { error: 'Validation failed', details: error.errors },
         { status: 400 }
@@ -65,7 +74,7 @@ export async function POST(request: NextRequest) {
     }
     
     return NextResponse.json(
-      { error: 'Failed to submit admin request' },
+      { error: 'Failed to submit admin request', details: error.message },
       { status: 500 }
     )
   }

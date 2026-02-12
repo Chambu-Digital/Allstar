@@ -8,6 +8,7 @@ import { ICategory } from '@/models/Category'
 import { getProductDisplayImage, getProductDisplayPrice } from '@/lib/product-utils'
 import { useCartStore } from '@/lib/cart-store'
 import { useUserStore } from '@/lib/user-store'
+import { companyInfo, getPhoneLink } from '@/lib/company-info'
 import CartSidebar from '@/components/cart-sidebar'
 
 export default function Header() {
@@ -88,15 +89,15 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
       {/* Contact Bar */}
-      <div className="bg-primary/5 border-b border-border/50">
+      <div className="bg-teal-600 border-b border-teal-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center py-2">
             <a 
-              href="tel:+254713065412" 
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+              href={getPhoneLink()} 
+              className="flex items-center gap-2 text-sm text-white hover:text-orange-200 transition-colors duration-200"
             >
               <Phone className="w-4 h-4" />
-              <span className="font-medium">+254 713 065 412</span>
+              <span className="font-medium">{companyInfo.phone}</span>
             </a>
           </div>
         </div>
@@ -109,8 +110,8 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-3 flex-shrink-0 min-w-0">
             <div className="relative min-w-max">
               <img 
-                src="/electromatt-logo-compact.svg" 
-                alt="Electromatt Logo" 
+                src="/allstar-tech-logo.svg" 
+                alt="Allstar Tech Logo" 
                 className="h-8 w-auto lg:h-10 transition-transform duration-200 hover:scale-105 max-w-none"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
@@ -119,9 +120,9 @@ export default function Header() {
                 }}
               />
               <div className="hidden flex items-center gap-2">
-                <Zap className="w-8 h-8 lg:w-10 lg:h-10 text-primary" />
-                <h1 className="text-lg lg:text-3xl font-black text-primary uppercase tracking-wide">
-                  ELECTROMATT
+                <Zap className="w-8 h-8 lg:w-10 lg:h-10 text-teal-600" />
+                <h1 className="text-lg lg:text-3xl font-black text-teal-600 uppercase tracking-wide">
+                  ALLSTAR TECH
                 </h1>
               </div>
             </div>
@@ -175,11 +176,11 @@ export default function Header() {
           {/* Desktop Search Bar */}
           <div className="hidden md:flex flex-1 max-w-md mx-8 relative">
             <form onSubmit={handleSearch} className="w-full">
-              <div className="relative flex items-center bg-muted/50 border border-border rounded-full px-4 py-2.5 focus-within:border-primary/50 focus-within:bg-background transition-all duration-200">
+              <div className="relative flex items-center bg-muted/50 border border-border rounded-full px-4 py-2.5 focus-within:border-teal-500 focus-within:bg-background transition-all duration-200">
                 <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                 <input
                   type="text"
-                  placeholder="Search electronics..."
+                  placeholder="Search computers, laptops, electronics..."
                   value={searchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
                   onFocus={() => searchResults.length > 0 && setShowSearchResults(true)}
@@ -187,7 +188,7 @@ export default function Header() {
                   className="flex-1 bg-transparent ml-3 outline-none text-sm text-foreground placeholder:text-muted-foreground"
                 />
                 {searchLoading && (
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary flex-shrink-0"></div>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-teal-600 flex-shrink-0"></div>
                 )}
               </div>
             </form>
@@ -268,7 +269,7 @@ export default function Header() {
               <Button variant="ghost" size="icon" className="relative">
                 <ShoppingCart className="w-5 h-5" />
                 {isLoaded && getTotalItems() > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-secondary text-secondary-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center min-w-[20px] h-5">
+                  <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center min-w-[20px] h-5">
                     {getTotalItems()}
                   </span>
                 )}
@@ -292,11 +293,11 @@ export default function Header() {
           <div className="md:hidden border-t border-border">
             <div className="py-4">
               <form onSubmit={handleSearch} className="relative">
-                <div className="flex items-center bg-muted/50 border border-border rounded-full px-4 py-2.5 focus-within:border-primary/50 focus-within:bg-background transition-all duration-200">
+                <div className="flex items-center bg-muted/50 border border-border rounded-full px-4 py-2.5 focus-within:border-teal-500 focus-within:bg-background transition-all duration-200">
                   <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                   <input
                     type="text"
-                    placeholder="Search electronics..."
+                    placeholder="Search computers, laptops, electronics..."
                     value={searchQuery}
                     onChange={(e) => handleSearchChange(e.target.value)}
                     onFocus={() => searchResults.length > 0 && setShowSearchResults(true)}
@@ -305,7 +306,7 @@ export default function Header() {
                     autoFocus
                   />
                   {searchLoading && (
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary flex-shrink-0"></div>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-teal-600 flex-shrink-0"></div>
                   )}
                 </div>
 

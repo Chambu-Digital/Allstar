@@ -6,13 +6,14 @@ import Breadcrumb from '@/components/breadcrumb'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import Link from 'next/link'
+import { companyInfo } from '@/lib/company-info'
 
 export default function AboutPage() {
   const values = [
     {
       icon: Zap,
       title: 'Latest Technology',
-      description: 'We offer cutting-edge electronics and appliances with the latest features and innovations.',
+      description: 'We offer cutting-edge computers, electronics, and accessories with the latest features and innovations.',
     },
     {
       icon: Shield,
@@ -22,12 +23,12 @@ export default function AboutPage() {
     {
       icon: Truck,
       title: 'Fast Delivery',
-      description: 'Quick and reliable delivery across Kenya with professional installation services available.',
+      description: 'Quick and reliable delivery across Kenya with professional setup services available.',
     },
     {
       icon: Award,
       title: 'Expert Support',
-      description: 'Our knowledgeable team provides expert advice and after-sales support for all products.',
+      description: 'Our knowledgeable team provides expert advice and technical support for all products.',
     },
   ]
 
@@ -52,10 +53,10 @@ export default function AboutPage() {
         <section className="py-8 md:py-12 px-4 md:px-8 bg-primary/10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              About <span className="font-black uppercase tracking-wide">ELECTROMATT</span>
+              About <span className="font-black uppercase tracking-wide">ALLSTAR TECH</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-6 max-w-3xl mx-auto">
-              Kenya's premier electronics retailer since 2018. From home appliances to smart devices, we bring you the latest technology with exceptional service and unbeatable prices.
+              Your trusted technology partner for computers, electronics, and innovative solutions. We bring you cutting-edge technology with exceptional service and competitive prices.
             </p>
           </div>
         </section>
@@ -65,7 +66,7 @@ export default function AboutPage() {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Our Story</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-             Electromatt has grown from a small Nairobi shop to Kenya's trusted electronics retailer. We partner with leading brands like Samsung, LG, Sony, and Apple to bring you quality technology at competitive prices.
+              Allstar Tech has grown to become a trusted technology partner in Kenya. We specialize in computers, laptops, and electronics, partnering with leading brands like Dell, HP, ASUS, Lenovo, Samsung, and more to bring you quality technology at competitive prices.
             </p>
  
           </div>
@@ -82,16 +83,15 @@ export default function AboutPage() {
                 <div>
                   <h3 className="text-lg font-semibold text-card-foreground mb-3">Location & Contact</h3>
                   <div className="space-y-1 text-sm text-muted-foreground">
-                    <p>Phone: +254 713 065 412</p>
-                    <p>Email: sales@electromatt.co.ke</p>
+                    <p>Phone: {companyInfo.phone}</p>
+                    <p>Email: {companyInfo.email}</p>
                   </div>
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-card-foreground mb-3">Business Hours</h3>
                   <div className="space-y-1 text-sm text-muted-foreground">
-                    <p>Mon-Fri: 8:00 AM - 6:00 PM</p>
-                    <p>Saturday: 9:00 AM - 5:00 PM</p>
-                    <p>Sunday: 10:00 AM - 4:00 PM</p>
+                    <p>Mon-Sat: 8:00 AM - 6:00 PM</p>
+                    <p>Sunday: Closed</p>
                   </div>
                 </div>
               </div>
@@ -137,7 +137,7 @@ export default function AboutPage() {
               Ready to Shop?
             </h2>
             <p className="text-muted-foreground mb-6">
-              Join thousands of satisfied customers. Quality electronics, expert service, unbeatable prices.
+              Join thousands of satisfied customers. Quality technology, expert service, competitive prices.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/products">

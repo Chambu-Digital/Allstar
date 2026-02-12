@@ -84,12 +84,12 @@ export default function CategoriesPage() {
         <div className="sm:flex-auto">
           <h1 className="text-2xl font-bold text-gray-900">Categories</h1>
           <p className="mt-2 text-sm text-gray-700">
-            Manage your product categories, including their visibility and organization.
+            Manage your product categories for computers, electronics, and technology products.
           </p>
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
           <Link href="/admin/categories/new">
-            <Button className="flex items-center gap-2">
+            <Button className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white">
               <Plus className="h-4 w-4" />
               Add Category
             </Button>
@@ -97,45 +97,54 @@ export default function CategoriesPage() {
         </div>
       </div>
 
-      <div className="bg-white shadow overflow-hidden sm:rounded-md">
+      <div className="bg-white shadow overflow-hidden sm:rounded-lg border border-gray-200">
         <ul className="divide-y divide-gray-200">
           {categories.map((category) => (
-            <li key={category._id}>
+            <li key={category._id} className="hover:bg-gray-50 transition-colors">
               <div className="px-4 py-4 flex items-center justify-between">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 h-16 w-16">
+                <div className="flex items-center flex-1">
+                  <div className="flex-shrink-0 h-20 w-20">
                     <img
-                      className="h-16 w-16 rounded-lg object-cover"
+                      className="h-20 w-20 rounded-lg object-cover border-2 border-gray-200"
                       src={category.image || '/placeholder.svg'}
                       alt={category.name}
                     />
                   </div>
-                  <div className="ml-4">
-                    <div className="flex items-center">
-                      <p className="text-lg font-medium text-gray-900">
+                  <div className="ml-4 flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="text-lg font-semibold text-gray-900">
                         {category.name}
                       </p>
-                      <span className={`ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         category.isActive 
-                          ? 'bg-green-100 text-green-800' 
+                          ? 'bg-teal-100 text-teal-800' 
                           : 'bg-red-100 text-red-800'
                       }`}>
                         {category.isActive ? 'Active' : 'Inactive'}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-gray-600 mt-1 line-clamp-2">
                       {category.description}
                     </p>
-                    <p className="text-xs text-gray-400 mt-1">
-                      Slug: {category.slug}
-                    </p>
+                    <div className="flex items-center gap-4 mt-2">
+                      <p className="text-xs text-gray-500">
+                        <span className="font-medium">Slug:</span> {category.slug}
+                      </p>
+                      {category.icon && (
+                        <p className="text-xs text-gray-500">
+                          <span className="font-medium">Icon:</span> {category.icon}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 ml-4">
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => toggleActive(category._id!, category.isActive)}
+                    className="hover:bg-gray-100"
+                    title={category.isActive ? 'Deactivate' : 'Activate'}
                   >
                     {category.isActive ? (
                       <EyeOff className="h-4 w-4" />
@@ -144,7 +153,7 @@ export default function CategoriesPage() {
                     )}
                   </Button>
                   <Link href={`/admin/categories/${category._id}/edit`}>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="hover:bg-teal-50 hover:text-teal-700 hover:border-teal-300" title="Edit">
                       <Edit className="h-4 w-4" />
                     </Button>
                   </Link>
@@ -152,7 +161,8 @@ export default function CategoriesPage() {
                     variant="outline"
                     size="sm"
                     onClick={() => handleDelete(category._id!)}
-                    className="text-red-600 hover:text-red-700"
+                    className="text-red-600 hover:text-red-700 hover:bg-red-50 hover:border-red-300"
+                    title="Delete"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -164,10 +174,17 @@ export default function CategoriesPage() {
       </div>
 
       {categories.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg mb-4">No categories found</p>
+        <div className="text-center py-12 bg-white rounded-lg shadow border border-gray-200">
+          <div className="mx-auto w-24 h-24 bg-teal-100 rounded-full flex items-center justify-center mb-4">
+            <Plus className="w-12 h-12 text-teal-600" />
+          </div>
+          <p className="text-gray-500 text-lg mb-2">No categories found</p>
+          <p className="text-gray-400 text-sm mb-6">Get started by creating your first technology category</p>
           <Link href="/admin/categories/new">
-            <Button>Create your first category</Button>
+            <Button className="bg-teal-600 hover:bg-teal-700 text-white">
+              <Plus className="h-4 w-4 mr-2" />
+              Create your first category
+            </Button>
           </Link>
         </div>
       )}
