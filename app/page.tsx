@@ -1,13 +1,31 @@
 'use client'
 
-import { ArrowRight, Laptop, Monitor } from 'lucide-react'
+import { ArrowRight, Laptop, Monitor, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import FlashDealsSection from '@/components/flash-deals'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import Link from 'next/link'
+import { useRef } from 'react'
 
 export default function Home() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 350 // Width of card + gap
+      const currentScroll = scrollContainerRef.current.scrollLeft
+      const targetScroll = direction === 'left' 
+        ? currentScroll - scrollAmount 
+        : currentScroll + scrollAmount
+      
+      scrollContainerRef.current.scrollTo({
+        left: targetScroll,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
