@@ -165,8 +165,29 @@ export default function Home() {
             </div>
             
             {/* Horizontal Scrolling Categories */}
-            <div className="relative">
-              <div className="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide">
+            <div className="relative group">
+              {/* Navigation Buttons */}
+              <button
+                onClick={() => scroll('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-blue-50 hover:scale-110 transform -translate-x-6"
+                aria-label="Scroll left"
+              >
+                <ChevronLeft className="w-6 h-6 text-slate-900" />
+              </button>
+              
+              <button
+                onClick={() => scroll('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-blue-50 hover:scale-110 transform translate-x-6"
+                aria-label="Scroll right"
+              >
+                <ChevronRight className="w-6 h-6 text-slate-900" />
+              </button>
+
+              <div 
+                ref={scrollContainerRef}
+                className="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide scroll-smooth"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
                 {/* Laptops */}
                 <Link href="/category/laptops" className="group flex-shrink-0 w-80 snap-start">
                   <div className="relative h-64 rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 shadow-lg hover:shadow-2xl transition-all duration-300">
@@ -269,15 +290,6 @@ export default function Home() {
                     </div>
                   </div>
                 </Link>
-              </div>
-              
-              {/* Scroll Hint */}
-              <div className="flex justify-center mt-6 gap-2">
-                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                <div className="w-2 h-2 rounded-full bg-slate-300"></div>
-                <div className="w-2 h-2 rounded-full bg-slate-300"></div>
-                <div className="w-2 h-2 rounded-full bg-slate-300"></div>
-                <div className="w-2 h-2 rounded-full bg-slate-300"></div>
               </div>
             </div>
           </div>
