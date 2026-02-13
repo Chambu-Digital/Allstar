@@ -386,9 +386,7 @@ export default function AdminDashboard() {
                   className="relative group bg-card p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary rounded-lg border border-border hover:border-primary/50 transition-colors"
                 >
                   <div>
-                    <span className="rounded-lg inline-flex p-3 bg-blue-50 text-blue-700 ring-4 ring-white">
-                      <Package className="h-6 w-6" />
-                    </span>
+                   
                   </div>
                   <div className="mt-6">
                     <h3 className="text-lg font-medium">
@@ -407,11 +405,7 @@ export default function AdminDashboard() {
                   href="/admin/categories/new"
                   className="relative group bg-card p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary rounded-lg border border-border hover:border-primary/50 transition-colors"
                 >
-                  <div>
-                    <span className="rounded-lg inline-flex p-3 bg-green-50 text-green-700 ring-4 ring-white">
-                      <FolderOpen className="h-6 w-6" />
-                    </span>
-                  </div>
+                 
                   <div className="mt-6">
                     <h3 className="text-lg font-medium">
                       <span className="absolute inset-0" />
@@ -429,11 +423,7 @@ export default function AdminDashboard() {
                   href="/admin/products"
                   className="relative group bg-card p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary rounded-lg border border-border hover:border-primary/50 transition-colors"
                 >
-                  <div>
-                    <span className="rounded-lg inline-flex p-3 bg-yellow-50 text-yellow-700 ring-4 ring-white">
-                      <ShoppingCart className="h-6 w-6" />
-                    </span>
-                  </div>
+                 
                   <div className="mt-6">
                     <h3 className="text-lg font-medium">
                       <span className="absolute inset-0" />
@@ -451,11 +441,7 @@ export default function AdminDashboard() {
                   href="/admin/orders"
                   className="relative group bg-card p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary rounded-lg border border-border hover:border-primary/50 transition-colors"
                 >
-                  <div>
-                    <span className="rounded-lg inline-flex p-3 bg-purple-50 text-purple-700 ring-4 ring-white">
-                      <Clock className="h-6 w-6" />
-                    </span>
-                  </div>
+               
                   <div className="mt-6">
                     <h3 className="text-lg font-medium">
                       <span className="absolute inset-0" />
@@ -473,11 +459,7 @@ export default function AdminDashboard() {
                   href="/admin/reviews"
                   className="relative group bg-card p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary rounded-lg border border-border hover:border-primary/50 transition-colors"
                 >
-                  <div>
-                    <span className="rounded-lg inline-flex p-3 bg-orange-50 text-orange-700 ring-4 ring-white">
-                      <Star className="h-6 w-6" />
-                    </span>
-                  </div>
+                 
                   <div className="mt-6">
                     <h3 className="text-lg font-medium">
                       <span className="absolute inset-0" />
@@ -495,11 +477,7 @@ export default function AdminDashboard() {
                   href="/admin/blog/new"
                   className="relative group bg-card p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary rounded-lg border border-border hover:border-primary/50 transition-colors"
                 >
-                  <div>
-                    <span className="rounded-lg inline-flex p-3 bg-indigo-50 text-indigo-700 ring-4 ring-white">
-                      <FileText className="h-6 w-6" />
-                    </span>
-                  </div>
+                
                   <div className="mt-6">
                     <h3 className="text-lg font-medium">
                       <span className="absolute inset-0" />

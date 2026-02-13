@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Loader2, Eye, EyeOff, Mail, Lock, Shield, Leaf } from 'lucide-react'
+import { Loader2, Eye, EyeOff, Mail, Lock, Shield } from 'lucide-react'
 import { useUserStore } from '@/lib/user-store'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -75,20 +75,20 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 text-2xl font-bold text-teal-600">
-            Allstar Tech
+          <Link href="/" className="inline-flex items-center gap-2 text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            ALLSTAR TECH
           </Link>
-          <p className="text-muted-foreground mt-2">Admin Portal</p>
+          <p className="text-slate-400 mt-2">Admin Portal</p>
         </div>
 
-        <Card className="shadow-lg border-0">
+        <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur">
           <CardHeader className="space-y-1 text-center">
-            <div className="mx-auto w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mb-4">
-              <Shield className="w-6 h-6 text-slate-600" />
+            <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mb-4 shadow-lg shadow-blue-500/30">
+              <Shield className="w-6 h-6 text-white" />
             </div>
             <CardTitle className="text-2xl font-bold">Admin Login</CardTitle>
             <CardDescription>
@@ -112,7 +112,7 @@ export default function AdminLoginPage() {
                     id="email"
                     type="email"
                     placeholder="admin@allstar.co.ke"
-                    className="pl-10"
+                    className="pl-10 focus-visible:ring-blue-500"
                     {...register('email')}
                   />
                 </div>
@@ -129,7 +129,7 @@ export default function AdminLoginPage() {
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Enter admin password"
-                    className="pl-10 pr-10"
+                    className="pl-10 pr-10 focus-visible:ring-blue-500"
                     {...register('password')}
                   />
                   <Button
@@ -153,7 +153,7 @@ export default function AdminLoginPage() {
 
               <Button
                 type="submit"
-                className="w-full"
+                className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white shadow-lg shadow-blue-500/30"
                 disabled={isSubmitting || isLoading}
               >
                 {isSubmitting || isLoading ? (
@@ -176,7 +176,7 @@ export default function AdminLoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowSimpleReset(true)}
-                  className="text-primary font-medium hover:underline"
+                  className="text-blue-600 font-medium hover:text-cyan-600 hover:underline transition-colors"
                 >
                   Reset Password
                 </button>
@@ -185,7 +185,7 @@ export default function AdminLoginPage() {
                 Don't have admin access?{' '}
                 <Link
                   href="/admin/register"
-                  className="text-primary font-medium hover:underline"
+                  className="text-blue-600 font-medium hover:text-cyan-600 hover:underline transition-colors"
                 >
                   Request Access
                 </Link>
@@ -194,7 +194,7 @@ export default function AdminLoginPage() {
                 Need customer access?{' '}
                 <Link
                   href="/account/login"
-                  className="text-primary font-medium hover:underline"
+                  className="text-blue-600 font-medium hover:text-cyan-600 hover:underline transition-colors"
                 >
                   Customer Login
                 </Link>
@@ -206,7 +206,7 @@ export default function AdminLoginPage() {
         <div className="mt-8 text-center">
           <Link
             href="/"
-            className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            className="text-sm text-slate-400 hover:text-blue-400 transition-colors"
           >
             ← Back to store
           </Link>

@@ -1,14 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Star, Search, Filter, Grid, List } from 'lucide-react'
+import { Search, Filter, TrendingUp, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { IProduct } from '@/models/Product'
 import { getProductDisplayImage, getProductDisplayPrice } from '@/lib/product-utils'
 import ProductSort from '@/components/product-sort'
 import ViewToggle from '@/components/view-toggle'
-import Breadcrumb from '@/components/breadcrumb'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import ActiveRatingDisplay from '@/components/active-rating-display'
@@ -21,7 +20,7 @@ export default function ProductsPage() {
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
-  const [sortBy, setSortBy] = useState('name')
+  const [sortBy, setSortBy] = useState<'featured' | 'price-low-high' | 'price-high-low' | 'rating' | 'newest' | 'name-a-z' | 'name-z-a'>('featured')
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [availableCategories, setAvailableCategories] = useState<string[]>([])
@@ -117,192 +116,258 @@ export default function ProductsPage() {
     const { price: priceB } = getProductDisplayPrice(b)
 
     switch (sortBy) {
-      case 'price-low':
+      case 'price-low-high':
         return priceA - priceB
-      case 'price-high':
+      case 'price-high-low':
         return priceB - priceA
       case 'rating':
         return b.rating - a.rating
       case 'newest':
         return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
-      default:
+      case 'name-a-z':
         return a.name.localeCompare(b.name)
+      case 'name-z-a':
+        return b.name.localeCompare(a.name)
+      case 'featured':
+      default:
+        return 0 // Keep original order for featured
     }
   })
 
-  const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'All Products', href: '/products' }
-  ]
-
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-teal-600 to-teal-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-black mb-4">All Products</h1>
-            <p className="text-xl text-teal-100 max-w-2xl mx-auto">
-              Discover our complete range of computers, laptops, and technology products
+      {/* Hero Section - Enhanced Professional Style */}
+      <section className="relative h-[500px] md:h-[600px] overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1920&h=1080&fit=crop" 
+            alt="Technology Products"
+            className="w-full h-full object-cover scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+        </div>
+        
+        {/* Hero Content */}
+        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
+          <div className="max-w-3xl space-y-6">
+            <div className="inline-block">
+              <span className="px-4 py-2 bg-blue-500/20 backdrop-blur-sm border border-blue-400/50 rounded-full text-blue-300 text-sm font-semibold tracking-wide uppercase">
+                Complete Collection
+              </span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-black leading-[1.1] text-white tracking-tight">
+              All Products
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-300 font-light max-w-2xl leading-relaxed">
+              Discover our complete range of computers, laptops, and cutting-edge technology products
             </p>
+            
+            {/* Quick Stats */}
+            <div className="flex flex-wrap gap-8 pt-4">
+              <div className="text-center">
+                <div className="text-3xl font-black text-white">{products.length}+</div>
+                <div className="text-sm text-blue-300 font-medium">Products</div>
+              </div>
+              <div className="w-px bg-white/20"></div>
+              <div className="text-center">
+                <div className="text-3xl font-black text-white">{availableCategories.length}+</div>
+                <div className="text-sm text-blue-300 font-medium">Categories</div>
+              </div>
+              <div className="w-px bg-white/20"></div>
+              <div className="text-center">
+                <div className="text-3xl font-black text-white">{dealProducts.length}</div>
+                <div className="text-sm text-blue-300 font-medium">Hot Deals</div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      
-      <main className="flex-1 py-8 px-4 md:px-8 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <Breadcrumb items={breadcrumbItems} />
 
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
+            <div className="w-1.5 h-3 bg-blue-500 rounded-full"></div>
+          </div>
+        </div>
+      </section>
+      
+      <main className="flex-1 py-12 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto">
           {/* Deals Section - Compact */}
           {dealProducts.length > 0 && (
-            <div className="mb-8 bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6 border-2 border-orange-200 shadow-sm">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">🔥</span>
-                  <div>
-                    <h2 className="text-xl font-black text-orange-600">Hot Deals</h2>
-                    <p className="text-sm text-gray-600">Limited time offers - Don't miss out!</p>
+            <div className="mb-8 relative">
+              <div className="bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-600 rounded-xl p-0.5 shadow-lg">
+                <div className="bg-white rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center shadow-md">
+                        <TrendingUp className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-black text-gray-900">Hot Deals</h2>
+                        <p className="text-xs text-gray-600 flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          Limited time offers
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setShowDeals(!showDeals)}
+                      className="text-xs text-white font-bold px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+                    >
+                      {showDeals ? 'Hide' : 'View All'}
+                    </button>
                   </div>
-                </div>
-                <button
-                  onClick={() => setShowDeals(!showDeals)}
-                  className="text-sm text-orange-600 hover:text-orange-700 font-bold px-4 py-2 bg-white rounded-lg border-2 border-orange-200 hover:border-orange-300 transition-all"
-                >
-                  {showDeals ? 'Hide Deals' : 'View All Deals'}
-                </button>
-              </div>
-              
-              {showDeals && (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {dealProducts.map((product) => {
-                    const displayImage = getProductDisplayImage(product)
-                    const { price, oldPrice } = getProductDisplayPrice(product)
-                    const discount = product.flashDealDiscount || 20
-                    
-                    return (
-                      <Link key={product._id} href={`/product/${product._id}`}>
-                        <div className="bg-white rounded-lg p-4 hover:shadow-lg transition-all border-2 border-transparent hover:border-orange-300 group">
-                          <div className="relative mb-3">
-                            <img
-                              src={displayImage}
-                              alt={product.name}
-                              className="w-full h-32 object-cover rounded-lg group-hover:scale-105 transition-transform"
-                            />
-                            <span className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md">
-                              -{discount}%
-                            </span>
-                          </div>
-                          <div className="space-y-2">
-                            <h3 className="font-semibold text-sm line-clamp-2 text-gray-900">{product.name}</h3>
-                            <div className="flex items-center gap-2">
-                              <span className="text-orange-600 font-black text-base">
-                                KSH {price.toLocaleString()}
-                              </span>
-                              {oldPrice && (
-                                <span className="text-xs line-through text-gray-400">
-                                  {oldPrice.toLocaleString()}
-                                </span>
-                              )}
+                  
+                  {showDeals && (
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-gray-200">
+                      {dealProducts.map((product) => {
+                        const displayImage = getProductDisplayImage(product)
+                        const { price, oldPrice } = getProductDisplayPrice(product)
+                        const discount = product.flashDealDiscount || 20
+                        
+                        return (
+                          <Link key={product._id} href={`/product/${product._id}`}>
+                            <div className="bg-gradient-to-br from-gray-50 to-white rounded-lg p-3 hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-blue-300 group relative overflow-hidden">
+                              {/* Hover Glow Effect */}
+                              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/5 transition-all duration-300 rounded-lg"></div>
+                              
+                              <div className="relative">
+                                <div className="relative mb-2 rounded-lg overflow-hidden bg-white shadow-sm">
+                                  <img
+                                    src={displayImage}
+                                    alt={product.name}
+                                    className="w-full h-28 object-cover group-hover:scale-110 transition-transform duration-500"
+                                  />
+                                  <div className="absolute top-2 right-2 bg-gradient-to-br from-red-500 to-pink-600 text-white text-xs font-black px-2 py-1 rounded-full shadow-md">
+                                    -{discount}%
+                                  </div>
+                                </div>
+                                <div className="space-y-1.5">
+                                  <h3 className="font-bold text-xs line-clamp-2 text-gray-900 group-hover:text-blue-600 transition-colors">
+                                    {product.name}
+                                  </h3>
+                                  <div className="flex flex-col gap-0.5">
+                                    <span className="text-blue-600 font-black text-sm">
+                                      KSH {price.toLocaleString()}
+                                    </span>
+                                    {oldPrice && (
+                                      <span className="text-[10px] line-through text-gray-400 font-medium">
+                                        KSH {oldPrice.toLocaleString()}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      </Link>
-                    )
-                  })}
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           )}
 
-          {/* Search and Filters */}
-          <div className="mb-8 bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+          {/* Search and Filters - Enhanced */}
+          <div className="mb-10 bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
             {/* Search Bar */}
-            <div className="relative max-w-xl mb-6">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <div className="relative max-w-2xl mb-8">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-5 pointer-events-none">
+                <Search className="text-gray-400 w-6 h-6" />
+              </div>
               <input
                 type="text"
                 placeholder="Search for laptops, desktops, accessories..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-teal-500 transition-colors text-gray-700"
+                className="w-full pl-14 pr-6 py-4 text-base border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all text-gray-700 placeholder:text-gray-400 font-medium"
               />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              )}
             </div>
 
             {/* Filters and Controls */}
-            <div className="space-y-4">
-              {/* Category Filter */}
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-sm font-bold text-gray-700">Filter by:</span>
-                {availableCategories.slice(0, 8).map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => {
-                      if (selectedCategories.includes(category)) {
-                        setSelectedCategories(prev => prev.filter(c => c !== category))
-                      } else {
-                        setSelectedCategories(prev => [...prev, category])
-                      }
-                    }}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg border-2 transition-all ${
-                      selectedCategories.includes(category)
-                        ? 'bg-teal-600 text-white border-teal-600 shadow-md'
-                        : 'bg-white border-gray-200 text-gray-700 hover:border-teal-500 hover:text-teal-600'
-                    }`}
-                  >
-                    {category}
-                  </button>
-                ))}
-                {selectedCategories.length > 0 && (
-                  <button
-                    onClick={() => setSelectedCategories([])}
-                    className="px-4 py-2 text-sm font-medium rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
-                  >
-                    Clear All
-                  </button>
-                )}
-              </div>
-              
-              <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-200">
-                <div className="flex items-center gap-4">
+            <div className="space-y-6">
+              <div className="flex flex-wrap items-center justify-between gap-6">
+                <div className="flex items-center gap-4 flex-1">
+                  {/* Category Dropdown Filter */}
+                  <div className="relative min-w-[240px]">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Filter className="w-4 h-4 text-blue-600" />
+                      <label className="text-sm font-semibold text-gray-900">Category</label>
+                    </div>
+                    <select
+                      value={selectedCategories[0] || ''}
+                      onChange={(e) => {
+                        if (e.target.value) {
+                          setSelectedCategories([e.target.value])
+                        } else {
+                          setSelectedCategories([])
+                        }
+                      }}
+                      className="w-full px-4 py-3 text-sm font-medium border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all bg-white text-gray-700 cursor-pointer hover:border-blue-300"
+                    >
+                      <option value="">All Categories</option>
+                      {availableCategories.map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  
                   <ProductSort
-                    sortBy={sortBy}
+                    currentSort={sortBy}
                     onSortChange={setSortBy}
                   />
                   
                   <ViewToggle
-                    viewMode={viewMode}
-                    onViewModeChange={setViewMode}
+                    currentView={viewMode}
+                    onViewChange={setViewMode}
                   />
                 </div>
                 
-                <div className="text-sm font-medium text-gray-600">
-                  Showing <span className="text-teal-600 font-bold">{sortedProducts.length}</span> products
+                <div className="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-200">
+                  <div className="text-sm font-medium text-gray-600">
+                    Showing <span className="text-blue-600 font-black text-lg">{sortedProducts.length}</span> products
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Products Grid/List */}
+          {/* Products Grid/List - Enhanced */}
           <div className={
             viewMode === 'grid' 
-              ? 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6' 
-              : 'space-y-4'
+              ? 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8' 
+              : 'space-y-6'
           }>
             {loading ? (
-              // Loading skeleton
+              // Loading skeleton - Enhanced
               Array(12).fill(0).map((_, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-xl overflow-hidden animate-pulse flex flex-col shadow-sm border border-gray-200"
+                  className="bg-white rounded-2xl overflow-hidden animate-pulse flex flex-col shadow-lg border border-gray-200"
                 >
-                  <div className="bg-gray-200 h-48" />
-                  <div className="p-4 flex-1 flex flex-col space-y-3">
-                    <div className="h-3 bg-gray-200 rounded w-16" />
-                    <div className="h-4 bg-gray-200 rounded w-full" />
-                    <div className="h-3 bg-gray-200 rounded w-20" />
-                    <div className="h-5 bg-gray-200 rounded w-24" />
+                  <div className="bg-gradient-to-br from-gray-200 to-gray-300 h-56" />
+                  <div className="p-6 flex-1 flex flex-col space-y-4">
+                    <div className="h-3 bg-gray-200 rounded-full w-20" />
+                    <div className="h-5 bg-gray-200 rounded-full w-full" />
+                    <div className="h-3 bg-gray-200 rounded-full w-24" />
+                    <div className="h-6 bg-gray-200 rounded-full w-28" />
                   </div>
                 </div>
               ))
@@ -316,56 +381,79 @@ export default function ProductsPage() {
                 return (
                   <div
                     key={product._id}
-                    className={`bg-white rounded-xl overflow-hidden hover:shadow-xl transition-all border-2 border-gray-100 hover:border-teal-300 group ${
+                    className={`bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-blue-300 group relative ${
                       viewMode === 'list' ? 'flex' : 'flex flex-col'
                     }`}
                   >
+                    {/* Hover Glow Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/5 transition-all duration-300 rounded-2xl pointer-events-none"></div>
+                    
                     <Link href={`/product/${product._id}`}>
-                      <div className={`relative bg-gray-50 overflow-hidden cursor-pointer ${
-                        viewMode === 'list' ? 'w-40 h-32' : 'h-48'
+                      <div className={`relative bg-gradient-to-br from-gray-50 to-white overflow-hidden cursor-pointer ${
+                        viewMode === 'list' ? 'w-48 h-40' : 'h-56'
                       }`}>
                         <img
                           src={displayImage}
                           alt={product.name}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                         {hasDiscount && (
-                          <div className="absolute top-3 left-3 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                          <div className="absolute top-4 left-4 bg-gradient-to-br from-red-500 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-black shadow-xl">
                             {isFlashDeal ? `-${product.flashDealDiscount}%` : 'SALE'}
                           </div>
                         )}
+                        
+                        {/* Quick View Overlay */}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
+                            <div className="bg-white text-blue-600 px-6 py-3 rounded-xl font-bold text-sm shadow-xl">
+                              Quick View
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </Link>
 
-                    <div className="p-4 flex-1 flex flex-col">
-                      <span className="text-xs font-semibold text-teal-600 mb-2 uppercase tracking-wide">{product.category}</span>
+                    <div className={`p-6 flex-1 flex flex-col ${viewMode === 'list' ? 'justify-center' : ''}`}>
+                      <span className="text-xs font-bold text-blue-600 mb-3 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full w-fit">
+                        {product.category}
+                      </span>
 
                       <Link href={`/product/${product._id}`}>
-                        <h3 className="font-bold text-sm text-gray-900 group-hover:text-teal-600 transition-colors mb-2 line-clamp-2 cursor-pointer">
+                        <h3 className="font-bold text-base text-gray-900 group-hover:text-blue-600 transition-colors mb-3 line-clamp-2 cursor-pointer leading-tight">
                           {product.name}
                         </h3>
                       </Link>
 
-                      <ActiveRatingDisplay 
-                        productId={product._id || ''}
-                        initialRating={product.rating}
-                        initialReviews={product.reviews}
-                        size="sm"
-                      />
+                      <div className="mb-4">
+                        <ActiveRatingDisplay 
+                          productId={product._id || ''}
+                          initialRating={product.rating}
+                          initialReviews={product.reviews}
+                          size="sm"
+                        />
+                      </div>
 
-                      <div className="flex items-center gap-2 mt-auto pt-2">
-                        <span className="text-lg font-black text-teal-600">
-                          KSH {price.toLocaleString()}
-                        </span>
+                      <div className="flex flex-col gap-1 mt-auto pt-3 border-t border-gray-100">
+                        <div className="flex items-baseline gap-3">
+                          <span className="text-2xl font-black text-blue-600">
+                            KSH {price.toLocaleString()}
+                          </span>
+                          {oldPrice && (
+                            <span className="text-sm line-through text-gray-400 font-medium">
+                              KSH {oldPrice.toLocaleString()}
+                            </span>
+                          )}
+                        </div>
                         {oldPrice && (
-                          <span className="text-sm line-through text-gray-400">
-                            {oldPrice.toLocaleString()}
+                          <span className="text-xs text-green-600 font-semibold">
+                            Save KSH {(oldPrice - price).toLocaleString()}
                           </span>
                         )}
                       </div>
 
                       {viewMode === 'list' && (
-                        <p className="text-sm text-gray-600 line-clamp-2 mt-2">
+                        <p className="text-sm text-gray-600 line-clamp-2 mt-4 leading-relaxed">
                           {product.description}
                         </p>
                       )}
@@ -376,34 +464,49 @@ export default function ProductsPage() {
             )}
           </div>
 
-          {/* Empty State */}
+          {/* Empty State - Enhanced */}
           {!loading && sortedProducts.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-muted-foreground text-lg mb-4">
-                No products found matching your criteria
+            <div className="text-center py-24 bg-white rounded-2xl shadow-lg border border-gray-200">
+              <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Search className="w-12 h-12 text-gray-400" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">No products found</h3>
+              <p className="text-gray-600 text-lg mb-8 max-w-md mx-auto">
+                We couldn't find any products matching your criteria. Try adjusting your filters or search terms.
               </p>
               <Button 
                 onClick={() => {
                   setSearchTerm('')
                   setSelectedCategories([])
                 }}
-                variant="outline"
+                size="lg"
+                className="px-8 py-6 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl"
               >
-                Clear Filters
+                Clear All Filters
               </Button>
             </div>
           )}
 
-          {/* Load More Button */}
+          {/* Load More Button - Enhanced */}
           {hasMore && !loading && sortedProducts.length > 0 && (
-            <div className="text-center mt-10">
+            <div className="text-center mt-16">
               <Button
                 onClick={handleLoadMore}
                 disabled={loadingMore}
                 size="lg"
-                className="px-8 py-6 bg-teal-600 hover:bg-teal-700 text-white font-bold shadow-lg hover:shadow-xl transition-all"
+                className="px-12 py-7 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 rounded-xl transform hover:scale-105 text-lg"
               >
-                {loadingMore ? 'Loading More Products...' : 'Load More Products'}
+                {loadingMore ? (
+                  <span className="flex items-center gap-3">
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Loading More Products...
+                  </span>
+                ) : (
+                  'Load More Products'
+                )}
               </Button>
             </div>
           )}

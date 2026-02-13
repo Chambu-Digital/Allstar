@@ -114,15 +114,15 @@ export default function FlashDealsSection() {
   const displayDeals: (IProduct | FeaturedDeal)[] = deals.length > 0 ? deals : featuredDeals
 
   return (
-    <section className="py-4">
+    <section className="py-2">
       <div className="max-w-7xl mx-auto">
-        {/* Deals Grid - Clean & Minimal */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {/* Deals Grid - Clean & Compact */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {loading ? (
             // Loading skeleton
             Array(4).fill(0).map((_, index) => (
-              <div key={index} className="bg-white rounded-lg overflow-hidden shadow-sm animate-pulse border border-gray-100">
-                <div className="bg-gray-200 h-48" />
+              <div key={index} className="bg-white rounded-xl overflow-hidden shadow-sm animate-pulse border border-gray-100">
+                <div className="bg-gray-200 h-44" />
                 <div className="p-3 space-y-2">
                   <div className="h-3 bg-gray-200 rounded w-full" />
                   <div className="h-4 bg-gray-200 rounded w-20" />
@@ -154,34 +154,42 @@ export default function FlashDealsSection() {
 
               return (
                 <Link key={dealId} href={`/product/${dealSlug}`} className="group">
-                  <div className="bg-white rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 border-2 border-gray-100 hover:border-orange-300">
+                  <div className="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-blue-300 relative">
+                    {/* Hover Glow Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/5 transition-all duration-300 rounded-xl pointer-events-none"></div>
+                    
                     {/* Image */}
-                    <div className="relative overflow-hidden bg-gray-50">
+                    <div className="relative overflow-hidden bg-gradient-to-br from-slate-50 to-white">
                       <img
                         src={dealImage}
                         alt={dealName}
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                        className="w-full h-44 md:h-52 object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                       {/* Discount Badge */}
-                      <div className="absolute top-3 right-3 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                      <div className="absolute top-2 right-2 bg-gradient-to-br from-red-500 to-pink-600 text-white px-2.5 py-1 rounded-full text-xs font-black shadow-lg">
                         -{dealDiscount}%
                       </div>
                     </div>
 
                     {/* Content */}
-                    <div className="p-4">
-                      <h3 className="font-bold text-sm text-gray-900 mb-2 line-clamp-2 leading-tight group-hover:text-orange-600 transition-colors">
+                    <div className="p-3 md:p-4 relative">
+                      <h3 className="font-bold text-sm md:text-base text-gray-900 mb-2 line-clamp-2 leading-tight group-hover:text-blue-600 transition-colors">
                         {dealName}
                       </h3>
                       
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-xl font-black text-orange-600">
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-lg md:text-xl font-black text-blue-600">
                           KSH {dealPrice.toLocaleString()}
                         </span>
                         {dealOldPrice && (
-                          <span className="text-xs line-through text-gray-400">
-                            {dealOldPrice.toLocaleString()}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs line-through text-gray-400">
+                              KSH {dealOldPrice.toLocaleString()}
+                            </span>
+                            <span className="text-xs text-green-600 font-semibold">
+                              Save {dealDiscount}%
+                            </span>
+                          </div>
                         )}
                       </div>
                     </div>

@@ -39,17 +39,17 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 text-2xl font-bold text-primary">
-            ELECTROMATT
+          <Link href="/" className="inline-flex items-center gap-2 text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            ALLSTAR TECH
           </Link>
-          <p className="text-sm text-muted-foreground mt-2">Sign in to your account</p>
+          <p className="text-sm text-slate-400 mt-2">Sign in to your account</p>
         </div>
 
-        <Card className="shadow-lg border-0">
+        <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur">
           <CardHeader className="text-center pb-4">
             <CardTitle className="text-xl font-semibold">Welcome Back</CardTitle>
             <p className="text-sm text-muted-foreground mt-2">
@@ -74,11 +74,11 @@ export default function LoginPage() {
 
         {/* Footer Links */}
         <div className="mt-6 text-center space-y-2">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-slate-400">
             Don't have an account?{' '}
             <Link
               href={`/account/register${returnTo !== '/' ? `?returnTo=${encodeURIComponent(returnTo)}` : ''}`}
-              className="text-primary hover:underline font-medium"
+              className="text-blue-400 hover:text-cyan-400 hover:underline font-medium transition-colors"
             >
               Sign up
             </Link>
@@ -87,14 +87,14 @@ export default function LoginPage() {
           <div className="flex items-center justify-center gap-4 text-sm">
             <Link
               href="/"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-slate-400 hover:text-blue-400 transition-colors"
             >
               ← Back to store
             </Link>
-            <span className="text-muted-foreground">•</span>
+            <span className="text-slate-600">•</span>
             <Link
               href="/track-order"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-slate-400 hover:text-blue-400 transition-colors"
             >
               Track Order
             </Link>
