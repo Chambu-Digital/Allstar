@@ -93,11 +93,7 @@ export default function QuickViewModal({ isOpen, onClose, productId }: QuickView
         price: price,
         image: image,
         quantity: quantity,
-        variant: selectedVariantData ? {
-          id: selectedVariantData.id,
-          type: selectedVariantData.type,
-          value: selectedVariantData.value
-        } : undefined
+        variantId: selectedVariant || undefined
       })
       
       setJustAdded(true)
