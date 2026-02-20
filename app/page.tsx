@@ -7,6 +7,8 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import Link from 'next/link'
 import { useRef, useState, useEffect, useCallback } from 'react'
+import { IProduct } from '@/models/Product'
+import { getProductDisplayImage, getProductDisplayPrice } from '@/lib/product-utils'
 
 // ─── Hero Slide data ───────────────────────────────────────────────────────────
 const heroSlides = [
@@ -64,6 +66,70 @@ const heroThumbs = [
   { src: 'https://images.unsplash.com/photo-1625948515291-69613efd103f?w=200&h=140&fit=crop', label: 'Accessories' },
 ]
 
+// ─── Product Tile Component ────────────────────────────────────────────────────
+function ProductTile({ product, index }: { product: IProduct; index: number }) {
+  const displayImage = getProductDisplayImage(product)
+  const { price, oldPrice } = getProductDisplayPrice(product)
+  const hasDiscount = oldPrice && oldPrice > price
+  const isFlashDeal = product.flashDealDiscount && product.flashDealDiscount > 0
+
+  return (
+    <Link
+      href={`/product/${product._id}`}
+      className="group block"
+      style={{
+        animation: 'fadeUp 0.5s ease both',
+        animationDelay: `${Math.min(index * 60, 480)}ms`,
+      }}
+    >
+      {/* IMAGE */}
+      <div className="relative overflow-hidden aspect-square mb-2.5">
+        <img
+          src={displayImage}
+          alt={product.name}
+          className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+        />
+        {hasDiscount && (
+          <span className="absolute top-2 left-2 z-10 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wide">
+            {isFlashDeal ? `-${product.flashDealDiscount}%` : 'SALE'}
+          </span>
+        )}
+      </div>
+
+      {/* NAME */}
+      <h3 className="text-xs font-medium tracking-wide uppercase text-gray-900 line-clamp-2 leading-tight mb-1 group-hover:text-blue-600 transition-colors duration-200">
+        {product.name}
+      </h3>
+
+      {/* PRICE */}
+      <div className="flex items-baseline gap-1.5">
+        <span className="text-sm font-bold text-gray-900">
+          KSh{price.toLocaleString()}
+        </span>
+        {oldPrice && (
+          <span className="text-xs line-through text-gray-400">
+            KSh{oldPrice.toLocaleString()}
+          </span>
+        )}
+      </div>
+    </Link>
+  )
+}
+
+// ─── Skeleton Tile ──────────────────────────────────────────────────────────────
+function SkeletonTile() {
+  return (
+    <div className="animate-pulse">
+      <div className="aspect-square bg-gray-100 w-full mb-3" />
+      <div className="space-y-1.5">
+        <div className="h-3 bg-gray-100 rounded w-full" />
+        <div className="h-3 bg-gray-100 rounded w-2/3" />
+        <div className="h-3.5 bg-gray-100 rounded w-20 mt-1" />
+      </div>
+    </div>
+  )
+}
+
 export default function Home() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
@@ -71,6 +137,13 @@ export default function Home() {
   const [current, setCurrent] = useState(0)
   const [animating, setAnimating] = useState(false)
   const [direction, setDirection] = useState<'next' | 'prev'>('next')
+
+  // ── Collection state ──────────────────────────────────────────────────────────
+  const [collectionProducts, setCollectionProducts] = useState<IProduct[]>([])
+  const [loadingCollection, setLoadingCollection] = useState(true)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [collectionPage, setCollectionPage] = useState(1)
+  const [hasMoreProducts, setHasMoreProducts] = useState(true)
 
   const goTo = useCallback(
     (index: number, dir: 'next' | 'prev' = 'next') => {
@@ -98,6 +171,30 @@ export default function Home() {
     const id = setInterval(nextSlide, 5000)
     return () => clearInterval(id)
   }, [nextSlide])
+
+  // ── Fetch collection products ─────────────────────────────────────────────────
+  useEffect(() => {
+    fetchCollectionProducts()
+  }, [])
+
+  const fetchCollectionProducts = async (loadMore = false) => {
+    try {
+      loadMore ? setLoadingMore(true) : setLoadingCollection(true)
+      const currentPage = loadMore ? collectionPage : 1
+      const res = await fetch(`/api/products?catalog=true&page=${currentPage}&limit=40`)
+      if (res.ok) {
+        const data = await res.json()
+        setCollectionProducts(prev => loadMore ? [...prev, ...data.products] : data.products)
+        setHasMoreProducts(data.products.length === 40)
+        setCollectionPage(loadMore ? collectionPage + 1 : 2)
+      }
+    } catch (err) {
+      console.error('Error fetching collection:', err)
+    } finally {
+      setLoadingCollection(false)
+      setLoadingMore(false)
+    }
+  }
 
   const slide = heroSlides[current]
 
@@ -296,6 +393,10 @@ export default function Home() {
               from { width: 0% }
               to   { width: 100% }
             }
+            @keyframes fadeUp {
+              from { opacity: 0; transform: translateY(18px); }
+              to   { opacity: 1; transform: translateY(0); }
+            }
           `}</style>
         </section>
 
@@ -463,6 +564,69 @@ export default function Home() {
                 </Link>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            COLLECTION SECTION — All Products
+        ══════════════════════════════════════════════════════════════════════ */}
+        <section className="py-16 md:py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <span className="inline-block px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm font-semibold tracking-wide uppercase mb-4">
+                Our Collection
+              </span>
+              <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">All Products</h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Browse our complete range of premium tech products
+              </p>
+            </div>
+
+            {/* Product Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
+              {loadingCollection
+                ? Array(8).fill(0).map((_, i) => <SkeletonTile key={i} />)
+                : collectionProducts.map((p, i) => <ProductTile key={p._id} product={p} index={i} />)
+              }
+            </div>
+
+            {/* Load More Button */}
+            {hasMoreProducts && !loadingCollection && collectionProducts.length > 0 && (
+              <div className="text-center pt-10">
+                <button
+                  onClick={() => fetchCollectionProducts(true)}
+                  disabled={loadingMore}
+                  className="inline-flex items-center gap-2 px-10 py-4 text-sm font-semibold text-gray-700 border-2 border-gray-300 rounded-xl hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  {loadingMore ? (
+                    <>
+                      <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                      </svg>
+                      Loading More...
+                    </>
+                  ) : (
+                    <>
+                      Load More Products
+                      <ChevronRight className="w-4 h-4" />
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
+
+            {/* View All Link */}
+            {!loadingCollection && collectionProducts.length > 0 && (
+              <div className="text-center mt-8">
+                <Link href="/products">
+                  <Button variant="outline" size="lg" className="gap-2 border-2 border-gray-300 hover:bg-blue-50 hover:border-blue-500 hover:text-blue-600 px-8 py-6 text-base font-semibold rounded-xl transition-all duration-300">
+                    View All Products
+                    <ArrowRight className="w-5 h-5" />
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
         </section>
 
