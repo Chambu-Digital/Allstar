@@ -5,7 +5,7 @@ This is a dynamic XML feed that automatically pulls products from your database 
 
 ## Feed URL
 ```
-https://electromatt.co.ke/google-feed.xml
+https://allstar.co.ke/google-feed.xml
 ```
 
 ## Features
@@ -24,7 +24,7 @@ Each product includes:
 - **image_link**: Main product image URL
 - **price**: Product price in KES (Kenyan Shillings)
 - **availability**: "in stock" or "out of stock"
-- **brand**: ELECTROMATT
+- **brand**: ALLSTAR TECH
 - **condition**: new
 - **product_type**: Product category
 - **identifier_exists**: no (since GTINs are not available)
@@ -51,7 +51,7 @@ Products with variants (size, color, scent, etc.) are handled intelligently:
 2. Navigate to **Products** → **Feeds**
 3. Click **Add Feed**
 4. Choose **Scheduled fetch**
-5. Enter feed URL: `https://electromatt.co.ke/google-feed.xml`
+5. Enter feed URL: `https://allstar.co.ke/google-feed.xml`
 6. Set fetch frequency (recommended: Daily)
 7. Save and test the feed
 
@@ -59,7 +59,7 @@ Products with variants (size, color, scent, etc.) are handled intelligently:
 
 Visit the admin panel at:
 ```
-https://electromatt.co.ke/admin/google-feed
+https://allstar.co.ke/admin/google-feed
 ```
 
 Here you can:
@@ -73,12 +73,12 @@ Here you can:
 
 You can view the raw XML feed at:
 ```
-https://electromatt.co.ke/google-feed.xml
+https://allstar.co.ke/google-feed.xml
 ```
 
 Or via the API endpoint:
 ```
-https://electromatt.co.ke/api/google-feed
+https://allstar.co.ke/api/google-feed
 ```
 
 ## Feed Structure
@@ -89,11 +89,11 @@ https://electromatt.co.ke/api/google-feed
   <g:id>507f1f77bcf86cd799439011</g:id>
   <g:title>Samsung 55" Smart TV</g:title>
   <g:description>4K Ultra HD Smart TV with HDR...</g:description>
-  <g:link>https://electromatt.co.ke/product/samsung-55-smart-tv</g:link>
+  <g:link>https://allstar.co.ke/product/samsung-55-smart-tv</g:link>
   <g:image_link>https://example.com/image.jpg</g:image_link>
   <g:price>45000.00 KES</g:price>
   <g:availability>in stock</g:availability>
-  <g:brand>ELECTROMATT</g:brand>
+  <g:brand>ALLSTAR TECH</g:brand>
   <g:condition>new</g:condition>
   <g:product_type>Electronics</g:product_type>
   <g:identifier_exists>no</g:identifier_exists>
@@ -107,11 +107,11 @@ https://electromatt.co.ke/api/google-feed
   <g:id>507f1f77bcf86cd799439011</g:id>
   <g:title>Premium Face Serum</g:title>
   <g:description>Hydrating face serum...</g:description>
-  <g:link>https://electromatt.co.ke/product/premium-face-serum</g:link>
+  <g:link>https://allstar.co.ke/product/premium-face-serum</g:link>
   <g:image_link>https://example.com/serum.jpg</g:image_link>
   <g:price>1500.00 KES</g:price>
   <g:availability>in stock</g:availability>
-  <g:brand>ELECTROMATT</g:brand>
+  <g:brand>ALLSTAR TECH</g:brand>
   <g:condition>new</g:condition>
   <g:product_type>Beauty</g:product_type>
   <g:identifier_exists>no</g:identifier_exists>
@@ -122,11 +122,11 @@ https://electromatt.co.ke/api/google-feed
   <g:id>507f1f77bcf86cd799439011_variant1</g:id>
   <g:title>Premium Face Serum - 30ml</g:title>
   <g:description>Hydrating face serum...</g:description>
-  <g:link>https://electromatt.co.ke/product/premium-face-serum</g:link>
+  <g:link>https://allstar.co.ke/product/premium-face-serum</g:link>
   <g:image_link>https://example.com/serum-30ml.jpg</g:image_link>
   <g:price>1500.00 KES</g:price>
   <g:availability>in stock</g:availability>
-  <g:brand>ELECTROMATT</g:brand>
+  <g:brand>ALLSTAR TECH</g:brand>
   <g:condition>new</g:condition>
   <g:product_type>Beauty</g:product_type>
   <g:item_group_id>507f1f77bcf86cd799439011</g:item_group_id>

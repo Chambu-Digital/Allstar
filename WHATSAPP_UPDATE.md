@@ -10,7 +10,7 @@ All WhatsApp messages now use Allstar Tech branding and pull contact information
 
 ### Before:
 ```
-Hello ELECTROMATT Store!
+Hello Allstar Tech Store!
 
 I would like to place an order:
 ...

@@ -13,6 +13,6 @@
   <path d="M30 43 Q35 48 40 45 Q45 42 50 45" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round"/>
   
   <!-- Company Name -->
-  <text x="65" y="25" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">ELECTROMATT</text>
+  <text x="65" y="25" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">ALLSTAR TECH</text>
   <text x="65" y="40" font-family="Arial, sans-serif" font-size="8" fill="rgba(255,255,255,0.7)">ELECTRONICS STORE</text>
 </svg>

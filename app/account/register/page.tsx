@@ -40,7 +40,7 @@ export default function RegisterPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 text-2xl font-bold text-primary">
-            Electromatt
+            Allstar Tech
           </Link>
           <p className="text-muted-foreground mt-2">Create your account to get started</p>
         </div>
@@ -58,7 +58,7 @@ export default function RegisterPage() {
             <GoogleSignInButton
               returnTo={returnTo}
               onSuccess={() => {
-                showSuccessToast('Welcome to Electromatt!')
+                showSuccessToast('Welcome to Allstar Tech!')
               }}
               onError={(error) => {
                 console.error('Registration error:', error)

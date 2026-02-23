@@ -13,7 +13,7 @@
   <path d="M20 28 Q23 31 26 29 Q29 27 32 29" stroke="#FFFFFF" stroke-width="1.5" fill="none" stroke-linecap="round"/>
   
   <!-- Company Name -->
-  <text x="42" y="17" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="url(#textGradient)">ELECTROMATT</text>
+  <text x="42" y="17" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="url(#textGradient)">ALLSTAR TECH</text>
   <text x="42" y="27" font-family="Arial, sans-serif" font-size="6" fill="#666666">ELECTRONICS</text>
   
   <!-- Gradients -->

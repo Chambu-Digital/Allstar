@@ -77,7 +77,7 @@ export async function GET(request: NextRequest) {
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>
-    <title>ELECTROMATT - Premium Electronics &amp; Appliances</title>
+    <title>Allstar Tech - Premium Electronics &amp; Appliances</title>
     <link>${baseUrl}</link>
     <description>Quality electronics and appliances in Kenya</description>
     <lastBuildDate>${currentDate}</lastBuildDate>
@@ -92,7 +92,7 @@ export async function GET(request: NextRequest) {
       const imageLink = getMainImage(product)
       const price = getLowestPrice(product)
       const availability = getAvailability(product)
-      const brand = 'ELECTROMATT'
+      const brand = 'ALLSTAR TECH'
       const condition = 'new'
 
       // Skip products without essential data

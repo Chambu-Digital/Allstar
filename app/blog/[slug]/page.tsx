@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 
   return {
-    title: `${post.title} | ELECTROMATT Blog`,
+    title: `${post.title} | Allstar Tech Blog`,
     description: post.metaDescription || post.excerpt,
     keywords: post.metaKeywords || post.tags.join(', '),
     openGraph: {
@@ -45,14 +45,14 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   
-  // Featured blog content for Electromatt (fallback when no database posts)
+  // Featured blog content for Allstar Tech (fallback when no database posts)
   const featuredBlogContent: { [key: string]: any } = {
     'smart-home-revolution': {
-      title: "Smart Home Revolution: Transform Your Living Space with Electromatt",
+      title: "Smart Home Revolution: Transform Your Living Space with Allstar Tech",
       subtitle: "Discover the future of home automation and intelligent living",
       content: `
         <h2>The Smart Home Revolution is Here</h2>
-        <p>Smart home technology has evolved from a luxury to a necessity in modern living. At Electromatt, we're at the forefront of this revolution, offering cutting-edge smart devices that transform your house into an intelligent, efficient, and secure home.</p>
+        <p>Smart home technology has evolved from a luxury to a necessity in modern living. At Allstar Tech, we're at the forefront of this revolution, offering cutting-edge smart devices that transform your house into an intelligent, efficient, and secure home.</p>
         
         <h3>Essential Smart Home Devices</h3>
         <p><strong>Smart Lighting Systems:</strong> Control your home's ambiance with voice commands or smartphone apps. Our smart bulbs and switches offer energy savings of up to 80% compared to traditional lighting.</p>
@@ -70,14 +70,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </ul>
         
         <h3>Getting Started with Smart Home</h3>
-        <p>Start small with smart plugs and bulbs, then gradually add more devices. Our experts at Electromatt can help you design a smart home system that fits your budget and lifestyle.</p>
+        <p>Start small with smart plugs and bulbs, then gradually add more devices. Our experts at Allstar Tech can help you design a smart home system that fits your budget and lifestyle.</p>
         
-        <p>Visit our showroom to experience smart home technology firsthand and discover how Electromatt can transform your living space into a modern, intelligent home.</p>
+        <p>Visit our showroom to experience smart home technology firsthand and discover how Allstar Tech can transform your living space into a modern, intelligent home.</p>
       `,
       featuredImage: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800",
       categories: ["Smart Home", "Technology"],
       tags: ["smart home", "automation", "IoT", "energy efficiency"],
-      author: "Electromatt Tech Team",
+      author: "Allstar Tech Team",
       publishedAt: new Date("2025-01-20")
     },
     'kitchen-electronics-guide': {
@@ -85,7 +85,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       subtitle: "Your complete guide to choosing the perfect kitchen appliances",
       content: `
         <h2>Transform Your Kitchen with Modern Electronics</h2>
-        <p>The kitchen is the heart of every home, and having the right electronics can make cooking more enjoyable, efficient, and healthy. At Electromatt, we offer a comprehensive range of kitchen appliances to suit every cooking style and budget.</p>
+        <p>The kitchen is the heart of every home, and having the right electronics can make cooking more enjoyable, efficient, and healthy. At Allstar Tech, we offer a comprehensive range of kitchen appliances to suit every cooking style and budget.</p>
         
         <h3>Must-Have Kitchen Electronics</h3>
         <p><strong>Microwave Ovens:</strong> From basic reheating to advanced convection cooking, choose from our range of LG, Samsung, and other premium brands. Consider size, power, and features like grill and convection modes.</p>
@@ -109,12 +109,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <li>Replace filters and parts as recommended</li>
         </ul>
         
-        <p>Visit Electromatt today to see our full range of kitchen electronics and get expert advice on choosing the perfect appliances for your culinary needs.</p>
+        <p>Visit Allstar Tech today to see our full range of kitchen electronics and get expert advice on choosing the perfect appliances for your culinary needs.</p>
       `,
       featuredImage: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800",
       categories: ["Kitchen Electronics", "Buying Guide"],
       tags: ["kitchen appliances", "microwave", "blender", "buying guide"],
-      author: "Electromatt Kitchen Experts",
+      author: "Allstar Tech Kitchen Experts",
       publishedAt: new Date("2025-01-18")
     }
   };
@@ -259,8 +259,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Call to Action */}
         <div className="mt-8 bg-primary/5 rounded-2xl p-8 text-center">
           <img 
-            src="/electromatt-icon-only.svg" 
-            alt="Electromatt Logo" 
+            src="/allstar-tech-icon.svg" 
+            alt="Allstar Tech Logo" 
             className="w-12 h-12 mx-auto mb-4"
           />
           <h3 className="text-2xl font-bold text-card-foreground mb-4">Ready to Upgrade Your Electronics?</h3>

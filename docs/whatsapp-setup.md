@@ -1,29 +1,29 @@
-# WhatsApp Business Setup for ELECTROMATT Store
+# WhatsApp Business Setup for Allstar Tech Store
 
 ## URGENT: Business Profile Update Required
 
-**Current Issue:** The WhatsApp Business profile is showing "Velman's Natural Remedies" instead of "ELECTROMATT Store"
+**Current Issue:** The WhatsApp Business profile is showing "Velman's Natural Remedies" instead of "Allstar Tech Store"
 
 ### Immediate Action Required:
 
 1. **Update Business Name:**
    - Open WhatsApp Business app
    - Go to Settings > Business Profile
-   - Change Business Name to: **ELECTROMATT Store**
+   - Change Business Name to: **Allstar Tech Store**
 
 2. **Update Profile Picture:**
-   - Use the Electromatt logo (`/electromatt-logo.svg`)
+   - Use the Allstar Tech logo (`/allstar-tech-logo.svg`)
    - Ensure it's clear and recognizable
 
 3. **Update Business Description:**
    ```
-   ELECTROMATT Store - Kenya's trusted electronics retailer since 2018.
+   Allstar Tech Store - Kenya's trusted electronics retailer since 2018.
 
    Quality appliances, competitive prices, exceptional service.
 
    Store Location: Agro House, Moi Avenue, 1st Floor Rm 35, Nairobi
    Phone: +254 702 113 628
-   Email: info@electromatt.co.ke
+   Email: info@allstar.co.ke
 
    Business Hours:
    Mon-Fri: 8AM-6PM
@@ -35,11 +35,11 @@
 
 ## Business Profile Information
 
-**Business Name:** ELECTROMATT Store  
+**Business Name:** Allstar Tech Store  
 **Phone Number:** +254 702 113 628  
 **Address:** Agro House, Moi Avenue, 1st Floor Rm 35, Nairobi, Kenya  
-**Email:** info@electromatt.co.ke  
-**Website:** https://electromatt.co.ke  
+**Email:** info@allstar.co.ke  
+**Website:** https://allstar.co.ke  
 
 ## Business Hours
 - Monday - Friday: 8:00 AM - 6:00 PM
@@ -49,7 +49,7 @@
 ## WhatsApp Business Profile Setup
 
 ### 1. Profile Picture
-Use the Electromatt logo (`/electromatt-logo.svg`) as the profile picture for the WhatsApp Business account.
+Use the Allstar Tech logo (`/allstar-tech-logo.svg`) as the profile picture for the WhatsApp Business account.
 
 ### 2. Business Categories
 - Electronics Store
@@ -62,7 +62,7 @@ Set up these quick replies for common customer inquiries:
 
 **Greeting:**
 ```
-Hello! Welcome to ELECTROMATT Store
+Hello! Welcome to Allstar Tech Store
 
 We are Kenya's trusted electronics retailer since 2018. How can we help you today?
 
@@ -126,7 +126,7 @@ Create labels to organize customer chats:
 
 ### Order Message Format:
 ```
-Hello ELECTROMATT Store!
+Hello Allstar Tech Store!
 
 I would like to place an order:
 
@@ -148,7 +148,7 @@ Thank you!
 
 ### Inquiry Message Format:
 ```
-Hello ELECTROMATT Store!
+Hello Allstar Tech Store!
 
 I am interested in getting in touch with your store. Please let me know how I can get more information about your products and services.
 
@@ -171,11 +171,11 @@ Messages include:
 ## Best Practices
 
 1. **Response Time:** Aim to respond within 15 minutes during business hours
-2. **Professional Tone:** Always use ELECTROMATT Store branding consistently
+2. **Professional Tone:** Always use Allstar Tech Store branding consistently
 3. **Order Confirmation:** Always confirm orders with delivery details and payment instructions
 4. **Follow-up:** Send delivery updates and ask for feedback after purchase
 5. **Catalog Updates:** Keep the WhatsApp catalog synchronized with website inventory
 
 ## CRITICAL: Profile Name Fix
 
-**The most important step is updating the WhatsApp Business profile name from "Velman's Natural Remedies" to "ELECTROMATT Store" to match the business branding.**
+**The most important step is updating the WhatsApp Business profile name from "Velman's Natural Remedies" to "Allstar Tech Store" to match the business branding.**

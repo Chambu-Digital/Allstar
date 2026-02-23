@@ -173,7 +173,7 @@ export default function GoogleFeedPage() {
               <li><strong>image_link:</strong> Main product image</li>
               <li><strong>price:</strong> Product price in KES</li>
               <li><strong>availability:</strong> Stock status</li>
-              <li><strong>brand:</strong> ELECTROMATT</li>
+              <li><strong>brand:</strong> ALLSTAR TECH</li>
               <li><strong>condition:</strong> new</li>
               <li><strong>product_type:</strong> Product category</li>
             </ul>
