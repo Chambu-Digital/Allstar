@@ -179,6 +179,17 @@ export default function Home() {
     finally { setLoadingCollection(false); setLoadingMore(false) }
   }
 
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 300
+      const currentScroll = scrollContainerRef.current.scrollLeft
+      scrollContainerRef.current.scrollTo({
+        left: direction === 'left' ? currentScroll - scrollAmount : currentScroll + scrollAmount,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   const slide = heroSlides[current]
 
   return (
@@ -353,7 +364,7 @@ export default function Home() {
         {/* ════════════════════════════════════════════════════════════════════
             BEST SELLERS
         ════════════════════════════════════════════════════════════════════ */}
-        <section style={{ background: '#070f25' }} className="py-12 md:py-16">
+        <section style={{ background: '#6182dcff' }} className="py-12 md:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-end justify-between mb-8">
               <div>
@@ -394,50 +405,83 @@ export default function Home() {
                 All Categories <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {categories.map((cat, i) => (
-                <Link key={cat.href} href={cat.href} className="group relative overflow-hidden rounded-2xl"
-                  style={{ aspectRatio: i === 0 ? '1/1.15' : '1/1' }}>
-                  <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                    style={{ backgroundImage: `url('${cat.img}')` }} />
-                  <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(6,14,36,0.25) 0%, rgba(6,14,36,0.88) 100%)' }} />
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ background: `linear-gradient(180deg, transparent 40%, rgba(37,99,235,0.2) 100%)` }} />
-                  <div className="absolute inset-0 rounded-2xl transition-colors duration-300"
-                    style={{ border: '1px solid rgba(255,255,255,0.05)' }}
-                    onMouseEnter={e => (e.currentTarget.style.borderColor = `rgba(37,99,235,0.45)`)}
-                    onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)')}
-                  />
-                  <div className="relative h-full flex flex-col justify-between p-4">
-                    <div className="self-end">
-                      <span className="text-[9px] font-bold text-white/40 tracking-wider uppercase">{cat.count}</span>
-                    </div>
-                    <div>
-                      <h3 className="font-display text-xl md:text-2xl text-white mb-0.5">{cat.label}</h3>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-slate-400">{cat.sub}</span>
-                        <div className="w-7 h-7 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0"
-                          style={{ background: BLUE }}>
-                          <ArrowRight className="w-3.5 h-3.5 text-white" />
+
+            {/* Carousel Container */}
+            <div className="relative group">
+              {/* Navigation Arrows */}
+              <button
+                onClick={() => scroll('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0"
+                style={{ background: 'rgba(6,14,36,0.9)', border: '1px solid rgba(37,99,235,0.3)' }}
+              >
+                <ChevronLeft className="w-5 h-5 text-white" />
+              </button>
+              <button
+                onClick={() => scroll('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0"
+                style={{ background: 'rgba(6,14,36,0.9)', border: '1px solid rgba(37,99,235,0.3)' }}
+              >
+                <ChevronRight className="w-5 h-5 text-white" />
+              </button>
+
+              {/* Scrollable Categories */}
+              <div 
+                ref={scrollContainerRef}
+                className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {categories.map((cat, i) => (
+                  <Link 
+                    key={cat.href} 
+                    href={cat.href} 
+                    className="group relative overflow-hidden rounded-2xl flex-shrink-0 snap-start"
+                    style={{ 
+                      width: 'calc(25% - 12px)',
+                      minWidth: '280px',
+                      aspectRatio: '1/1'
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                      style={{ backgroundImage: `url('${cat.img}')` }} />
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(6,14,36,0.25) 0%, rgba(6,14,36,0.88) 100%)' }} />
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ background: `linear-gradient(180deg, transparent 40%, rgba(37,99,235,0.2) 100%)` }} />
+                    <div className="absolute inset-0 rounded-2xl transition-colors duration-300"
+                      style={{ border: '1px solid rgba(255,255,255,0.05)' }}
+                      onMouseEnter={e => (e.currentTarget.style.borderColor = `rgba(37,99,235,0.45)`)}
+                      onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)')}
+                    />
+                    <div className="relative h-full flex flex-col justify-between p-4">
+                      <div className="self-end">
+                        <span className="text-[9px] font-bold text-white/40 tracking-wider uppercase">{cat.count}</span>
+                      </div>
+                      <div>
+                        <h3 className="font-display text-xl md:text-2xl text-white mb-0.5">{cat.label}</h3>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-slate-400">{cat.sub}</span>
+                          <div className="w-7 h-7 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0"
+                            style={{ background: BLUE }}>
+                            <ArrowRight className="w-3.5 h-3.5 text-white" />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ════════════════════════════════════════════════════════════════════
+        {/* ══════════════════════════════════════════════════════════════════════
             ALL PRODUCTS
-        ════════════════════════════════════════════════════════════════════ */}
-        <section style={{ background: '#070f25' }} className="py-12 md:py-16">
+        ══════════════════════════════════════════════════════════════════════ */}
+        <section style={{ background: 'white' }} className="py-12 md:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-end justify-between mb-8">
               <div>
                 <SectionLabel>Our Collection</SectionLabel>
-                <h2 className="font-display text-3xl md:text-4xl text-white tracking-tight">All Products</h2>
+                <h2 className="font-display text-3xl md:text-4xl text-black tracking-tight">All Products</h2>
                 <p className="text-sm text-slate-500 mt-1">Browse our complete range of premium tech</p>
               </div>
               {!loadingCollection && collectionProducts.length > 0 && (
@@ -513,22 +557,7 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { val: '10K+',  label: 'Happy Customers',  color: 'orange' },
-                  { val: '1500+', label: 'Products in Stock', color: 'blue'   },
-                  { val: '99%',   label: 'Satisfaction Rate', color: 'blue'   },
-                  { val: '5★',    label: 'Average Rating',    color: 'orange' },
-                ].map((stat, i) => (
-                  <div key={i} className="rounded-xl p-5" style={{
-                    background: stat.color === 'orange' ? 'rgba(249,115,22,0.08)' : 'rgba(37,99,235,0.1)',
-                    border: stat.color === 'orange' ? '1px solid rgba(249,115,22,0.2)' : `1px solid rgba(37,99,235,0.25)`,
-                  }}>
-                    <div className="font-display text-3xl mb-1" style={{ color: stat.color === 'orange' ? ORANGE : BLUE }}>{stat.val}</div>
-                    <div className="text-xs text-slate-400">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
+            
             </div>
           </div>
           <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg,transparent,rgba(249,115,22,0.35),transparent)' }} />
@@ -537,7 +566,7 @@ export default function Home() {
         {/* ════════════════════════════════════════════════════════════════════
             ABOUT
         ════════════════════════════════════════════════════════════════════ */}
-        <section style={{ background: '#060e24', borderTop: '1px solid rgba(255,255,255,0.04)' }} className="py-12 md:py-16">
+        <section style={{ background: 'white', borderTop: '1px solid rgba(255,255,255,0.04)' }} className="py-12 md:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
               <div className="relative">
@@ -545,16 +574,13 @@ export default function Home() {
                 <div className="absolute -bottom-4 -right-4 w-20 h-20 pointer-events-none" style={{ borderBottom: `2px solid ${ORANGE}`, borderRight: `2px solid ${ORANGE}`, borderRadius: '0 0 12px 0', opacity: 0.5 }} />
                 <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop" alt="Technology Workspace"
                   className="relative rounded-2xl w-full" style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }} />
-                <div className="absolute -bottom-5 left-6 px-4 py-2.5 rounded-xl flex items-center gap-3"
-                  style={{ background: `linear-gradient(135deg, ${BLUE_DARK}, ${BLUE})`, boxShadow: `0 8px 24px rgba(37,99,235,0.4)` }}>
-                  <Star className="w-4 h-4 text-white fill-white" />
-                  <span className="text-xs font-bold text-white">Kenya's #1 Tech Store</span>
-                </div>
+               
               </div>
               <div className="space-y-6 pt-6 md:pt-0">
                 <div>
                   <SectionLabel>About Allstar Tech</SectionLabel>
-                  <h2 className="font-display text-3xl md:text-4xl text-white leading-[1.1] tracking-tight">
+                  <h2 className="font-display text-3xl md:text-4xl text-black
+                   leading-[1.1] tracking-tight">
                     Elevate Your Tech<br /><span style={{ color: ORANGE }}>Experience</span>
                   </h2>
                 </div>
