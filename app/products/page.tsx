@@ -8,6 +8,7 @@ import ProductSort from '@/components/product-sort'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import ActiveRatingDisplay from '@/components/active-rating-display'
+import { ArrowRight, ChevronDown, Search, X, Flame, SlidersHorizontal } from 'lucide-react'
 
 type SortOption =
   | 'featured'
@@ -18,55 +19,69 @@ type SortOption =
   | 'name-a-z'
   | 'name-z-a'
 
+// ─── Brand colours (matches homepage) ─────────────────────────────────────────
+const BLUE       = '#2563EB'
+const BLUE_DARK  = '#1d4ed8'
+const ORANGE     = '#f97316'
+const ORANGE_DARK = '#ea580c'
+
 // ─────────────────────────────────────────────────────────────────────────────
-// PRODUCT TILE — matches reference image exactly
-// Large image on pure white · ALL CAPS name · bold price · no card/border/bg
+// PRODUCT TILE — dark card, matches homepage style
 // ─────────────────────────────────────────────────────────────────────────────
 function ProductTile({ product, index }: { product: IProduct; index: number }) {
   const displayImage = getProductDisplayImage(product)
   const { price, oldPrice } = getProductDisplayPrice(product)
   const hasDiscount = oldPrice && oldPrice > price
-  const isFlashDeal  = product.flashDealDiscount && product.flashDealDiscount > 0
+  const isFlashDeal = product.flashDealDiscount && product.flashDealDiscount > 0
+  const discountPct = isFlashDeal
+    ? product.flashDealDiscount
+    : oldPrice ? Math.round((1 - price / oldPrice) * 100) : null
 
   return (
     <Link
       href={`/product/${product._id}`}
       className="group block"
-      style={{
-        animation: 'fadeUp 0.5s ease both',
-        animationDelay: `${Math.min(index * 60, 480)}ms`,
-      }}
+      style={{ animation: 'fadeUp 0.5s ease both', animationDelay: `${Math.min(index * 45, 360)}ms` }}
     >
-      {/* IMAGE — large, on white, subtle zoom on hover */}
-      <div className="relative overflow-hidden aspect-square mb-2.5">
+      {/* Image container */}
+      <div
+        className="relative overflow-hidden rounded-xl mb-3 aspect-square transition-all duration-300"
+        style={{ background: '#0d1b3e', border: '1px solid rgba(37,99,235,0.18)' }}
+        onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.5)')}
+        onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(37,99,235,0.18)')}
+      >
         <img
           src={displayImage}
           alt={product.name}
-          className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+          className="w-full h-full object-contain p-3 transition-transform duration-500 ease-out group-hover:scale-[1.06]"
         />
-
-        {/* Discount badge */}
-        {hasDiscount && (
-          <span className="absolute top-2 left-2 z-10 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wide">
-            {isFlashDeal ? `-${product.flashDealDiscount}%` : 'SALE'}
+        {hasDiscount && discountPct && (
+          <span
+            className="absolute top-2.5 left-2.5 text-white text-[9px] font-black px-2 py-0.5 rounded-full tracking-wider"
+            style={{ background: ORANGE }}
+          >
+            -{discountPct}%
           </span>
         )}
+        {/* Quick view overlay */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-14 flex items-end justify-center pb-2.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{ background: 'linear-gradient(to top, rgba(13,27,62,0.92), transparent)' }}
+        >
+          <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: ORANGE }}>
+            Quick View →
+          </span>
+        </div>
       </div>
 
-      {/* NAME — all caps, tight spacing */}
-      <h3 className="text-xs font-medium tracking-wide uppercase text-gray-900 line-clamp-2 leading-tight mb-1 group-hover:text-blue-600 transition-colors duration-200">
+      {/* Text */}
+      <h3 className="text-xs font-medium text-slate-300 line-clamp-2 leading-snug mb-1.5 group-hover:text-orange-400 transition-colors duration-200">
         {product.name}
       </h3>
-
-      {/* PRICE — bold, minimal */}
       <div className="flex items-baseline gap-1.5">
-        <span className="text-sm font-bold text-gray-900">
-          KSh{price.toLocaleString()}
-        </span>
+        <span className="text-sm font-bold text-white">KSh {price.toLocaleString()}</span>
         {oldPrice && (
-          <span className="text-xs line-through text-gray-400">
-            KSh{oldPrice.toLocaleString()}
-          </span>
+          <span className="text-[11px] line-through text-slate-500">KSh {oldPrice.toLocaleString()}</span>
         )}
       </div>
     </Link>
@@ -74,7 +89,7 @@ function ProductTile({ product, index }: { product: IProduct; index: number }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DEAL TILE — same cardless pattern, compact
+// DEAL TILE
 // ─────────────────────────────────────────────────────────────────────────────
 function DealTile({ product }: { product: IProduct }) {
   const displayImage = getProductDisplayImage(product)
@@ -83,44 +98,70 @@ function DealTile({ product }: { product: IProduct }) {
 
   return (
     <Link href={`/product/${product._id}`} className="group block">
-      <div className="relative overflow-hidden aspect-square">
+      <div
+        className="relative overflow-hidden aspect-square rounded-xl mb-3 transition-all duration-300"
+        style={{ background: '#0d1b3e', border: '1px solid rgba(37,99,235,0.18)' }}
+        onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(249,115,22,0.5)')}
+        onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(37,99,235,0.18)')}
+      >
         <img
           src={displayImage}
           alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="w-full h-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
         />
-        <span className="absolute top-2 left-2 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 tracking-wide">
+        <span
+          className="absolute top-2.5 left-2.5 text-white text-[9px] font-black px-2 py-0.5 rounded-full tracking-wider"
+          style={{ background: ORANGE }}
+        >
           -{discount}%
         </span>
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-400 pointer-events-none" />
-      </div>
-
-      <div className="mt-2.5 space-y-0.5">
-        <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">{product.category}</p>
-        <h3 className="text-xs font-medium text-gray-900 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors duration-200">
-          {product.name}
-        </h3>
-        <div className="flex items-baseline gap-1.5 pt-0.5">
-          <span className="text-sm font-bold text-gray-900">KSH {price.toLocaleString()}</span>
-          {oldPrice && <span className="text-[11px] line-through text-gray-400">KSH {oldPrice.toLocaleString()}</span>}
+        <div
+          className="absolute inset-x-0 bottom-0 h-14 flex items-end justify-center pb-2.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{ background: 'linear-gradient(to top, rgba(13,27,62,0.92), transparent)' }}
+        >
+          <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: ORANGE }}>
+            Shop Now →
+          </span>
         </div>
+      </div>
+      <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-0.5">{product.category}</p>
+      <h3 className="text-xs font-medium text-slate-300 line-clamp-2 leading-snug group-hover:text-orange-400 transition-colors duration-200 mb-1">
+        {product.name}
+      </h3>
+      <div className="flex items-baseline gap-1.5">
+        <span className="text-sm font-bold text-white">KSh {price.toLocaleString()}</span>
+        {oldPrice && <span className="text-[11px] line-through text-slate-500">KSh {oldPrice.toLocaleString()}</span>}
       </div>
     </Link>
   )
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SKELETON TILE — square, matches product tile
+// SKELETON
 // ─────────────────────────────────────────────────────────────────────────────
 function SkeletonTile() {
   return (
     <div className="animate-pulse">
-      <div className="aspect-square bg-gray-100 w-full mb-3" />
+      <div className="aspect-square rounded-xl w-full mb-3" style={{ background: 'rgba(37,99,235,0.07)' }} />
       <div className="space-y-1.5">
-        <div className="h-3 bg-gray-100 rounded w-full" />
-        <div className="h-3 bg-gray-100 rounded w-2/3" />
-        <div className="h-3.5 bg-gray-100 rounded w-20 mt-1" />
+        <div className="h-2.5 rounded w-full"  style={{ background: 'rgba(37,99,235,0.07)' }} />
+        <div className="h-2.5 rounded w-3/4"   style={{ background: 'rgba(37,99,235,0.07)' }} />
+        <div className="h-3   rounded w-1/2 mt-1" style={{ background: 'rgba(37,99,235,0.07)' }} />
       </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SECTION LABEL — matches homepage
+// ─────────────────────────────────────────────────────────────────────────────
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-3 mb-2">
+      <span className="block w-6 h-0.5" style={{ background: ORANGE }} />
+      <span className="text-[11px] font-bold tracking-[0.2em] uppercase" style={{ color: ORANGE }}>
+        {children}
+      </span>
     </div>
   )
 }
@@ -129,19 +170,20 @@ function SkeletonTile() {
 // PAGE
 // ─────────────────────────────────────────────────────────────────────────────
 export default function ProductsPage() {
-  const [products, setProducts]                         = useState<IProduct[]>([])
-  const [dealProducts, setDealProducts]                 = useState<IProduct[]>([])
-  const [loading, setLoading]                           = useState(true)
-  const [loadingMore, setLoadingMore]                   = useState(false)
-  const [page, setPage]                                 = useState(1)
-  const [hasMore, setHasMore]                           = useState(true)
-  const [searchTerm, setSearchTerm]                     = useState('')
-  const [sortBy, setSortBy]                             = useState<SortOption>('featured')
-  const [selectedCategory, setSelectedCategory]         = useState('')
-  const [availableCategories, setAvailableCategories]   = useState<string[]>([])
-  const [showDeals, setShowDeals]                       = useState(false)
+  const [products, setProducts]                       = useState<IProduct[]>([])
+  const [dealProducts, setDealProducts]               = useState<IProduct[]>([])
+  const [loading, setLoading]                         = useState(true)
+  const [loadingMore, setLoadingMore]                 = useState(false)
+  const [page, setPage]                               = useState(1)
+  const [hasMore, setHasMore]                         = useState(true)
+  const [searchTerm, setSearchTerm]                   = useState('')
+  const [sortBy, setSortBy]                           = useState<SortOption>('featured')
+  const [selectedCategory, setSelectedCategory]       = useState('')
+  const [availableCategories, setAvailableCategories] = useState<string[]>([])
+  const [showDeals, setShowDeals]                     = useState(false)
+  const [filtersOpen, setFiltersOpen]                 = useState(false)
 
-  const scrollRef = useRef<HTMLDivElement>(null) // kept for hot-deals if needed
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     fetchProducts()
@@ -209,214 +251,279 @@ export default function ProductsPage() {
   return (
     <>
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap');
+        * { font-family: 'DM Sans', sans-serif; }
+        .font-display { font-family: 'Syne', sans-serif !important; }
         @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(18px); }
+          from { opacity: 0; transform: translateY(16px); }
           to   { opacity: 1; transform: translateY(0); }
         }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .orange-glow { box-shadow: 0 0 28px rgba(249,115,22,0.30); }
+        .blue-glow   { box-shadow: 0 0 28px rgba(37,99,235,0.25); }
+        .pill-active { background: #2563EB !important; color: white !important; border-color: #2563EB !important; }
       `}</style>
 
-      <div className="min-h-screen bg-white flex flex-col">
+      <div className="min-h-screen flex flex-col" style={{ background: '#060e24' }}>
         <Header />
 
-        {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <section className="relative h-[420px] md:h-[500px] overflow-hidden">
+        {/* ══════════════════════════════════════════════════════════════════
+            HERO BANNER
+        ══════════════════════════════════════════════════════════════════ */}
+        <section
+          className="relative overflow-hidden"
+          style={{
+            minHeight: 320,
+            background: 'linear-gradient(135deg, #06122b 0%, #0a1a3a 55%, #0d1f47 100%)',
+          }}
+        >
+          {/* Mesh glows */}
+          <div className="absolute inset-0 pointer-events-none" style={{
+            backgroundImage: `radial-gradient(circle at 10% 60%, rgba(37,99,235,0.18) 0%, transparent 48%),
+                              radial-gradient(circle at 88% 25%, rgba(249,115,22,0.12) 0%, transparent 42%)`
+          }} />
+         
+          {/* Faint bg image */}
           <img
-            src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1920&h=1080&fit=crop"
-            alt="All Products"
-            className="absolute inset-0 w-full h-full object-cover scale-105"
+            src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1920&h=600&fit=crop"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+          {/* Blue top accent */}
+          <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${BLUE}, transparent)` }} />
 
           <div
-            className="relative h-full max-w-7xl mx-auto px-6 lg:px-10 flex items-center"
-            style={{ animation: 'fadeUp 0.7s ease both' }}
+            className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20"
+            style={{ animation: 'fadeUp 0.6s ease both' }}
           >
-            <div className="space-y-4 max-w-lg">
-              <p className="text-[11px] font-bold text-blue-300 uppercase tracking-[0.2em]">
-                Complete Collection
-              </p>
-              <h1 className="text-5xl md:text-6xl font-black text-white leading-tight tracking-tight">
-                All Products
-              </h1>
-              <p className="text-white/55 text-base font-light">
-                Computers, laptops &amp; cutting-edge technology
-              </p>
-              <div className="flex items-center gap-8 pt-2">
-                {[
-                  { val: `${products.length}+`, label: 'Products' },
-                  { val: `${availableCategories.length}+`, label: 'Categories' },
-                  { val: `${dealProducts.length}`, label: 'Hot Deals' },
-                ].map((s, i) => (
-                  <div key={s.label} className="flex items-center gap-8">
-                    {i > 0 && <div className="w-px h-7 bg-white/15" />}
-                    <div>
-                      <div className="text-xl font-black text-white">{s.val}</div>
-                      <div className="text-[10px] text-blue-300 uppercase tracking-[0.15em]">{s.label}</div>
-                    </div>
-                  </div>
-                ))}
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              {/* Left — text */}
+              <div className="space-y-5">
+                <SectionLabel>Complete Collection</SectionLabel>
+                <h1 className="font-display text-5xl md:text-6xl text-white leading-[1.05] tracking-tight">
+                  All <span style={{ color: ORANGE }}>Products</span>
+                </h1>
+                <p className="text-slate-400 text-base leading-relaxed max-w-md">
+                  Computers, laptops &amp; cutting-edge technology everything you need in one place.
+                </p>
+
+                {/* Search bar inside hero */}
+                <div
+                  className="flex items-center gap-3 max-w-sm px-4 py-3 rounded-xl"
+                  style={{ background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.25)' }}
+                >
+                  <Search className="w-4 h-4 shrink-0" style={{ color: BLUE }} />
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchTerm}
+                    onChange={e => setSearchTerm(e.target.value)}
+                    className="flex-1 text-sm bg-transparent focus:outline-none text-white placeholder:text-slate-500"
+                  />
+                  {searchTerm && (
+                    <button onClick={() => setSearchTerm('')} className="text-slate-500 hover:text-white transition-colors">
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
               </div>
+
+            
             </div>
           </div>
 
-          {/* Scroll indicator */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce">
-            <div className="w-4 h-7 border border-white/20 rounded-full flex justify-center pt-1.5">
-              <div className="w-0.5 h-2 bg-blue-400 rounded-full" />
-            </div>
-          </div>
+          {/* Orange bottom accent */}
+          <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, rgba(249,115,22,0.4), transparent)` }} />
         </section>
 
-        {/* ── CONTENT ──────────────────────────────────────────────────────── */}
-        <main className="flex-1 max-w-7xl mx-auto w-full px-6 lg:px-10 py-10 space-y-10">
+        {/* ══════════════════════════════════════════════════════════════════
+            MAIN CONTENT
+        ══════════════════════════════════════════════════════════════════ */}
+        <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 space-y-10">
 
-          {/* HOT DEALS */}
+          {/* ── HOT DEALS ────────────────────────────────────────────────── */}
           {dealProducts.length > 0 && (
-            <div>
-              {/* Section label */}
-              <div className="flex items-center justify-between mb-5">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-0.5 h-4 bg-red-500" />
-                  <h2 className="text-xs font-black text-gray-900 uppercase tracking-[0.15em]">Hot Deals</h2>
-                  <span className="text-xs text-gray-400">· Limited time</span>
-                </div>
-                <button
-                  onClick={() => setShowDeals(!showDeals)}
-                  className="text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-1"
-                >
-                  {showDeals ? 'Hide' : 'View All'}
-                  <svg
-                    className={`w-3 h-3 transition-transform duration-300 ${showDeals ? 'rotate-180' : ''}`}
-                    fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"
+            <div
+              className="rounded-2xl overflow-hidden"
+              style={{ background: '#070f25', border: '1px solid rgba(249,115,22,0.15)' }}
+            >
+              <button
+                onClick={() => setShowDeals(!showDeals)}
+                className="w-full flex items-center justify-between px-6 py-4 hover:bg-white/[0.02] transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center"
+                    style={{ background: 'rgba(249,115,22,0.15)', border: '1px solid rgba(249,115,22,0.3)' }}
                   >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </button>
-              </div>
+                    <Flame className="w-4 h-4" style={{ color: ORANGE }} />
+                  </div>
+                  <div className="text-left">
+                    <h2 className="font-display text-base text-white">Hot Deals</h2>
+                    <p className="text-[10px] text-slate-500">Limited time offers</p>
+                  </div>
+                  <span
+                    className="text-[10px] font-bold px-2 py-0.5 rounded-full"
+                    style={{ background: 'rgba(249,115,22,0.15)', color: ORANGE }}
+                  >
+                    {dealProducts.length} deals
+                  </span>
+                </div>
+                <ChevronDown
+                  className="w-4 h-4 text-slate-400 transition-transform duration-300"
+                  style={{ transform: showDeals ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                />
+              </button>
 
               {showDeals && (
                 <div
-                  className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8"
-                  style={{ animation: 'fadeUp 0.35s ease both' }}
+                  className="px-6 pb-6 grid grid-cols-2 md:grid-cols-4 gap-5"
+                  style={{ animation: 'slideDown 0.3s ease both', borderTop: '1px solid rgba(255,255,255,0.04)' }}
                 >
+                  <div className="col-span-full pt-5" />
                   {dealProducts.map(p => <DealTile key={p._id} product={p} />)}
                 </div>
               )}
             </div>
           )}
 
-          {/* FILTER BAR — search + category pills only */}
-          <div className="space-y-3">
-            {/* Underline search — no box */}
-            <div className="relative max-w-sm">
-              <svg className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                className="w-full pl-6 pr-7 py-2 text-sm border-b border-gray-200 focus:border-gray-900 focus:outline-none bg-transparent placeholder:text-gray-300 text-gray-900 transition-colors duration-200"
-              />
-              {searchTerm && (
-                <button onClick={() => setSearchTerm('')} className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-600 transition-colors">
-                  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                  </svg>
-                </button>
-              )}
-            </div>
+          {/* ── FILTER + SORT BAR ─────────────────────────────────────────── */}
+          <div
+            className="rounded-2xl px-5 py-4 space-y-4"
+            style={{ background: '#070f25', border: '1px solid rgba(37,99,235,0.12)' }}
+          >
+            {/* Top row: filter toggle + sort + count */}
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <button
+                onClick={() => setFiltersOpen(!filtersOpen)}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all"
+                style={{
+                  background: filtersOpen ? 'rgba(37,99,235,0.15)' : 'rgba(37,99,235,0.07)',
+                  border: `1px solid rgba(37,99,235,${filtersOpen ? '0.4' : '0.2'})`,
+                  color: filtersOpen ? '#60a5fa' : '#94a3b8',
+                }}
+              >
+                <SlidersHorizontal className="w-3.5 h-3.5" />
+                Filters
+                <ChevronDown
+                  className="w-3 h-3 transition-transform duration-200"
+                  style={{ transform: filtersOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                />
+              </button>
 
-            {/* Category pills */}
-            <div className="flex flex-wrap gap-1.5">
-              {['', ...availableCategories].map(cat => (
-                <button
-                  key={cat || 'all'}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`
-                    px-3 py-1 text-xs font-semibold rounded-full transition-all duration-200
-                    ${selectedCategory === cat
-                      ? 'bg-gray-900 text-white'
-                      : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'}
-                  `}
-                >
-                  {cat || 'All'}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* ── PAGE TITLE + SORT BAR — exactly like reference ── */}
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Products</h2>
-            <div className="flex items-center justify-end gap-4 pb-4 border-b border-gray-200">
-              <div className="flex items-center gap-2 text-sm text-gray-500">
-                <span>Sort by:</span>
-                <ProductSort currentSort={sortBy} onSortChange={setSortBy} />
+              <div className="flex items-center gap-4 ml-auto">
+                <span className="text-xs text-slate-500">{sorted.length} products</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-slate-500 hidden sm:block">Sort:</span>
+                  <ProductSort currentSort={sortBy} onSortChange={setSortBy} />
+                </div>
               </div>
-              <span className="text-sm text-gray-400">{sorted.length} products</span>
             </div>
+
+            {/* Expandable filter panel */}
+            {filtersOpen && (
+              <div className="pt-3 space-y-3" style={{ animation: 'slideDown 0.25s ease both', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+                {/* Category pills */}
+                <div>
+                  <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-2">Category</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {['', ...availableCategories].map(cat => (
+                      <button
+                        key={cat || 'all'}
+                        onClick={() => setSelectedCategory(cat)}
+                        className="px-3 py-1.5 text-xs font-semibold rounded-full transition-all duration-200"
+                        style={{
+                          background: selectedCategory === cat ? BLUE : 'rgba(37,99,235,0.07)',
+                          color: selectedCategory === cat ? 'white' : '#94a3b8',
+                          border: selectedCategory === cat ? `1px solid ${BLUE}` : '1px solid rgba(37,99,235,0.15)',
+                        }}
+                      >
+                        {cat || 'All'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* ── PRODUCT GRID — ultra-clean, tight spacing like Epic Sports ── */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
+          {/* ── SECTION TITLE ────────────────────────────────────────────── */}
+          <div className="flex items-end justify-between">
+            <div>
+              <SectionLabel>Browse</SectionLabel>
+              <h2 className="font-display text-3xl md:text-4xl text-white tracking-tight">Products</h2>
+            </div>
+            {(searchTerm || selectedCategory) && (
+              <button
+                onClick={() => { setSearchTerm(''); setSelectedCategory('') }}
+                className="text-xs font-semibold flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all"
+                style={{ color: ORANGE, border: '1px solid rgba(249,115,22,0.25)', background: 'rgba(249,115,22,0.07)' }}
+              >
+                <X className="w-3 h-3" /> Clear filters
+              </button>
+            )}
+          </div>
+
+          {/* ── PRODUCT GRID ─────────────────────────────────────────────── */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
             {loading
               ? Array(8).fill(0).map((_, i) => <SkeletonTile key={i} />)
               : sorted.map((p, i) => <ProductTile key={p._id} product={p} index={i} />)
             }
           </div>
 
-          {/* EMPTY STATE */}
+          {/* ── EMPTY STATE ──────────────────────────────────────────────── */}
           {!loading && sorted.length === 0 && (
-            <div className="text-center py-16" style={{ animation: 'fadeUp 0.4s ease both' }}>
-              <svg className="w-8 h-8 text-gray-200 mx-auto mb-3" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-              <h3 className="text-sm font-semibold text-gray-900 mb-1">No products found</h3>
-              <p className="text-gray-400 text-xs mb-4">Try different filters or clear your search.</p>
+            <div
+              className="text-center py-20 rounded-2xl"
+              style={{ animation: 'fadeUp 0.4s ease both', background: '#070f25', border: '1px solid rgba(37,99,235,0.1)' }}
+            >
+              <div
+                className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                style={{ background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.2)' }}
+              >
+                <Search className="w-6 h-6" style={{ color: BLUE }} />
+              </div>
+              <h3 className="font-display text-xl text-white mb-2">No products found</h3>
+              <p className="text-slate-500 text-sm mb-6">Try adjusting your search or clearing filters.</p>
               <button
                 onClick={() => { setSearchTerm(''); setSelectedCategory('') }}
-                className="px-5 py-2 text-xs font-semibold text-white bg-gray-900 hover:bg-gray-700 rounded-full transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:scale-105 orange-glow"
+                style={{ background: `linear-gradient(135deg, ${ORANGE_DARK}, ${ORANGE})` }}
               >
-                Reset filters
+                Reset filters <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           )}
 
-          {/* LOAD MORE */}
+          {/* ── LOAD MORE ─────────────────────────────────────────────────── */}
           {hasMore && !loading && sorted.length > 0 && (
-            <div className="text-center pt-2 pb-6">
+            <div className="text-center pb-6">
               <button
                 onClick={() => fetchProducts(true)}
                 disabled={loadingMore}
-                className="
-                  inline-flex items-center gap-2 px-7 py-2.5
-                  text-xs font-semibold text-gray-700
-                  border border-gray-300 rounded-full
-                  hover:border-gray-900 hover:text-gray-900
-                  transition-all duration-200
-                  disabled:opacity-40 disabled:cursor-not-allowed
-                "
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-105"
+                style={{
+                  color: ORANGE,
+                  border: `1px solid rgba(249,115,22,0.35)`,
+                  background: 'rgba(249,115,22,0.06)',
+                }}
               >
                 {loadingMore ? (
                   <>
-                    <svg className="animate-spin h-3 w-3" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin h-4 w-4" style={{ color: ORANGE }} fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>
                     Loading...
                   </>
                 ) : (
-                  <>
-                    Load more
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </>
+                  <>Load More Products <ChevronDown className="w-4 h-4" /></>
                 )}
               </button>
             </div>

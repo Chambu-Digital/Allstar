@@ -151,42 +151,13 @@ export default function Header() {
       <div className={`bg-white transition-all duration-300 ${scrolled ? 'py-3' : 'py-4'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
-            {/* Logo - Enhanced */}
-            <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
-              <div className="relative w-12 h-12 flex-shrink-0">
-                {/* Animated glow ring */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-blue-500 to-cyan-500 rounded-xl blur-md opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
-                
-                {/* Main logo container */}
-                <div className="relative w-full h-full bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:shadow-blue-500/30 transition-all duration-300">
-                  {/* Geometric pattern overlay */}
-                  <div className="absolute inset-0 opacity-20">
-                    <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_48%,white_49%,white_51%,transparent_52%)] bg-[length:6px_6px]"></div>
-                  </div>
-                  
-                  {/* Circuit lines */}
-                  <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 48 48">
-                    <path d="M12 12 L36 12 M12 24 L36 24 M12 36 L36 36 M12 12 L12 36 M24 12 L24 36 M36 12 L36 36" stroke="white" strokeWidth="1" fill="none"/>
-                    <circle cx="12" cy="12" r="2" fill="white"/>
-                    <circle cx="36" cy="12" r="2" fill="white"/>
-                    <circle cx="12" cy="36" r="2" fill="white"/>
-                    <circle cx="36" cy="36" r="2" fill="white"/>
-                    <circle cx="24" cy="24" r="2" fill="white"/>
-                  </svg>
-                  
-                  {/* CPU/Chip icon */}
-                  <LaptopIcon className="w-6 h-6 text-white relative z-10 group-hover:scale-110 transition-transform duration-300" strokeWidth={2.5} />
-                </div>
-              </div>
-              
-              <div className="leading-tight">
-                <h1 className="text-xl lg:text-3xl font-black bg-gradient-to-r from-slate-800 via-blue-600 to-cyan-600 bg-clip-text text-transparent uppercase tracking-tight">
-                  Allstar Tech
-                </h1>
-                <div className="flex items-center gap-1.5 mt-0.5">
-                  <p className="text-[12px] text-slate-900 uppercase tracking-wider font-bold">Premium Technology</p>
-                </div>
-              </div>
+            {/* Logo */}
+            <Link href="/" className="flex items-center flex-shrink-0 group">
+              <img 
+                src="/allstar-logo.svg" 
+                alt="Allstar Tech" 
+                className="h-10 md:h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+              />
             </Link>
 
             {/* Desktop Search Bar - Enhanced */}

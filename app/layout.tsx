@@ -23,18 +23,9 @@ export const metadata: Metadata = {
     'google-adsense-account': 'ca-pub-8356821994711709',
   },
   icons: {
-    icon: [
-      {
-        url: '/favicon.svg',
-        type: 'image/svg+xml',
-      },
-      {
-        url: '/allstar-tech-icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/allstar-tech-icon.svg',
-    shortcut: '/favicon.svg',
+    icon: '/allstar-logo.svg',
+    apple: '/allstar-logo.svg',
+    shortcut: '/allstar-logo.svg',
   },
 }
 

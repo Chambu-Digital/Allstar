@@ -13,17 +13,13 @@ export default function Footer() {
           
           {/* Brand Column */}
           <div className="space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="relative w-10 h-10 flex-shrink-0">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-blue-500 to-cyan-500 rounded-lg blur-sm opacity-60"></div>
-                <div className="relative w-full h-full bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-600 rounded-lg flex items-center justify-center shadow-lg">
-                  <Laptop2 className="w-5 h-5 text-white" strokeWidth={2.5} />
-                </div>
-              </div>
-              <h2 className="text-xl font-black text-white tracking-wide">
-                ALLSTAR TECH
-              </h2>
-            </div>
+            <Link href="/" className="inline-block">
+              <img 
+                src="/allstar-logo.svg" 
+                alt="Allstar Tech" 
+                className="h-12 w-auto"
+              />
+            </Link>
             <p className="text-sm leading-relaxed text-gray-400">
               Your trusted partner for premium computers, laptops, and cutting-edge electronics. Quality products, exceptional service.
             </p>
