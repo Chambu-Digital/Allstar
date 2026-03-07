@@ -3,10 +3,10 @@
 
 export const companyInfo = {
   name: process.env.NEXT_PUBLIC_COMPANY_NAME || 'Allstar Tech',
-  email: process.env.NEXT_PUBLIC_COMPANY_EMAIL || 'sales@allstar.co.ke',
-  phone: process.env.NEXT_PUBLIC_COMPANY_PHONE || '0712345678',
-  phoneFormatted: process.env.NEXT_PUBLIC_COMPANY_PHONE_FORMATTED || '+254712345678',
-  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '254712345678',
+  email: process.env.NEXT_PUBLIC_COMPANY_EMAIL || 'allstartech2023@gmail.com',
+  phone: process.env.NEXT_PUBLIC_COMPANY_PHONE || '0722242418',
+  phoneFormatted: process.env.NEXT_PUBLIC_COMPANY_PHONE_FORMATTED || '+254722242418',
+  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '254722242418',
   address: process.env.NEXT_PUBLIC_COMPANY_ADDRESS || 'HH Towers, 4th Floor, Moi Avenue, Nairobi',
   city: process.env.NEXT_PUBLIC_COMPANY_CITY || 'Nairobi',
   country: process.env.NEXT_PUBLIC_COMPANY_COUNTRY || 'Kenya',

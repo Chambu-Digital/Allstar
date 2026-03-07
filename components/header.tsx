@@ -98,15 +98,15 @@ export default function Header() {
   return (
     <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'shadow-lg' : 'shadow-md'}`}>
       {/* Premium Top Bar */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-b border-slate-700/50">
+      <div className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 border-b border-blue-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-2.5 text-sm">
             <div className="flex items-center gap-4 lg:gap-6">
               <a 
                 href={getPhoneLink()} 
-                className="flex items-center gap-2 text-slate-200 hover:text-white transition-colors duration-200 group"
+                className="flex items-center gap-2 text-slate-200 hover:text-cyan-400 transition-colors duration-200 group"
               >
-                <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-blue-500/50 transition-all">
+                <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-cyan-500/50 transition-all">
                   <Phone className="w-3.5 h-3.5 text-white" />
                 </div>
                 <span className="font-medium hidden sm:inline">{companyInfo.phone}</span>
@@ -114,14 +114,14 @@ export default function Header() {
               
               <a 
                 href={getEmailLink()} 
-                className="hidden md:flex items-center gap-2 text-slate-300 hover:text-white transition-colors duration-200"
+                className="hidden md:flex items-center gap-2 text-slate-300 hover:text-cyan-400 transition-colors duration-200"
               >
                 <Mail className="w-3.5 h-3.5" />
                 <span className="text-xs">{companyInfo.email}</span>
               </a>
               
               <div className="hidden lg:flex items-center gap-2 text-slate-300">
-                <MapPin className="w-3.5 h-3.5" />
+                <MapPin className="w-3.5 h-3.5 text-orange-400" />
                 <span className="text-xs">{companyInfo.address}</span>
               </div>
             </div>
@@ -130,14 +130,14 @@ export default function Header() {
              
               
               {user ? (
-                <Link href="/account" className="flex items-center gap-2 text-slate-200 hover:text-white transition-colors duration-200 group">
+                <Link href="/account" className="flex items-center gap-2 text-slate-200 hover:text-cyan-400 transition-colors duration-200 group">
                   <div className="w-7 h-7 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center group-hover:shadow-lg group-hover:shadow-cyan-500/50 transition-all">
                     <User className="w-3.5 h-3.5 text-white" />
                   </div>
                   <span className="hidden sm:inline text-xs font-medium">My Account</span>
                 </Link>
               ) : (
-                <Link href="/account/login" className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200 text-xs font-semibold">
+                <Link href="/account/login" className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full hover:shadow-lg hover:shadow-orange-500/30 transition-all duration-200 text-xs font-semibold">
                   <User className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">Sign In</span>
                 </Link>
