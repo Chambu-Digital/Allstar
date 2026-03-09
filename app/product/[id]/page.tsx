@@ -268,12 +268,12 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                       />
                     ))}
                   </div>
-                  {realRating > 0 ? (
+                  {realRating > 0 && (
                     <span className="text-sm font-semibold text-gray-700">{realRating.toFixed(1)}</span>
-                  ) : null}
-                  <span className="text-sm text-gray-400">
-                    {realReviewCount > 0 ? `${realReviewCount} reviews` : 'No reviews yet'}
-                  </span>
+                  )}
+                  {realReviewCount > 0 && (
+                    <span className="text-sm text-gray-400">{realReviewCount} reviews</span>
+                  )}
                   {/* Stock indicator */}
                   <span className={`ml-auto text-xs font-semibold px-2 py-0.5 rounded-full ${inStock ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600'}`}>
                     {inStock ? `${currentStock} in stock` : 'Out of stock'}
@@ -299,7 +299,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                 ) : (
                   <div className="flex items-baseline gap-3 flex-wrap">
                     <span className="text-3xl font-black text-gray-900">KSH {displayPrice.price}</span>
-                    {displayPrice.oldPrice && (
+                    {displayPrice.oldPrice > 0 && (
                       <>
                         <span className="text-lg line-through text-gray-300">KSH {displayPrice.oldPrice}</span>
                         <span className="text-xs font-bold bg-red-50 text-red-600 px-2 py-0.5 rounded-full">

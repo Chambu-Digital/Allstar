@@ -133,9 +133,11 @@ export default function ProductCard({ product, viewMode = 'grid' }: ProductCardP
                       />
                     ))}
                 </div>
-                <span className="text-sm text-muted-foreground">
-                  {product.rating} ({product.reviews})
-                </span>
+                {product.reviews > 0 && (
+                  <span className="text-sm text-muted-foreground">
+                    {product.rating} ({product.reviews})
+                  </span>
+                )}
               </div>
 
               {/* Stock Status */}
@@ -152,7 +154,7 @@ export default function ProductCard({ product, viewMode = 'grid' }: ProductCardP
                 <span className="text-xl font-bold text-primary">
                   KSH {product.price}
                 </span>
-                {product.oldPrice && (
+                {product.oldPrice > 0 && (
                   <span className="text-sm line-through text-muted-foreground">
                     KSH {product.oldPrice}
                   </span>
@@ -323,9 +325,11 @@ export default function ProductCard({ product, viewMode = 'grid' }: ProductCardP
                 />
               ))}
           </div>
-          <span className="text-sm text-muted-foreground">
-            ({product.reviews})
-          </span>
+          {product.reviews > 0 && (
+            <span className="text-sm text-muted-foreground">
+              ({product.reviews})
+            </span>
+          )}
         </div>
 
         {/* Price */}
@@ -333,7 +337,7 @@ export default function ProductCard({ product, viewMode = 'grid' }: ProductCardP
           <span className="text-xl font-bold text-primary">
             KSH {product.price}
           </span>
-          {product.oldPrice && (
+          {product.oldPrice > 0 && (
             <span className="text-sm line-through text-muted-foreground">
               KSH {product.oldPrice}
             </span>
@@ -346,12 +350,12 @@ export default function ProductCard({ product, viewMode = 'grid' }: ProductCardP
             product.inStock ? 'text-green-600' : 'text-destructive'
           }`}>
             {product.inStock ? (
-              product.stockQuantity && product.stockQuantity <= 5 ? 
+              product.stockQuantity > 0 && product.stockQuantity <= 5 ? 
                 `Only ${product.stockQuantity} left!` : 
                 'In Stock'
             ) : 'Out of Stock'}
           </p>
-          {product.stockQuantity && product.stockQuantity <= 5 && product.inStock && (
+          {product.stockQuantity > 0 && product.stockQuantity <= 5 && product.inStock && (
             <span className="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded-full">
               Low Stock
             </span>

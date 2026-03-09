@@ -42,6 +42,20 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 
+# Sensitive files and credentials
+electromatt.txt
+*credentials*.md
+*password*.md
+*secret*.md
+*config*.md
+*mongodb*.md
+*database*.md
+
+# Test/debug scripts
+test-connection.js
+check-*.js
+test-*.js
+
 # Vercel
 .vercel
 
