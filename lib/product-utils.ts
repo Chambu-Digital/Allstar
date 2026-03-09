@@ -54,7 +54,7 @@ export function getProductDisplayPrice(product: IProduct): { price: number; oldP
       )
       return {
         price: cheapestVariant.price,
-        oldPrice: cheapestVariant.oldPrice
+        oldPrice: cheapestVariant.oldPrice && cheapestVariant.oldPrice > 0 ? cheapestVariant.oldPrice : undefined
       }
     }
     // Fallback to cheapest variant if no active variants
@@ -64,7 +64,7 @@ export function getProductDisplayPrice(product: IProduct): { price: number; oldP
       )
       return {
         price: cheapestVariant.price,
-        oldPrice: cheapestVariant.oldPrice
+        oldPrice: cheapestVariant.oldPrice && cheapestVariant.oldPrice > 0 ? cheapestVariant.oldPrice : undefined
       }
     }
   }
@@ -72,7 +72,7 @@ export function getProductDisplayPrice(product: IProduct): { price: number; oldP
   // For simple products or fallback, use product price
   return {
     price: product.price,
-    oldPrice: product.oldPrice
+    oldPrice: product.oldPrice && product.oldPrice > 0 ? product.oldPrice : undefined
   }
 }
 

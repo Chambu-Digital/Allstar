@@ -15,6 +15,7 @@ export interface IVariant {
 }
 
 export interface IProduct {
+  stock: number
   _id?: string
   name: string
   slug: string
