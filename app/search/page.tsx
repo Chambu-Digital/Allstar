@@ -83,7 +83,7 @@ function SearchResults() {
                     </Link>
                     <div className="flex items-center gap-2">
                       <span className="text-base font-bold text-primary">KSH {price.toLocaleString()}</span>
-                      {oldPrice && (
+                      {oldPrice > 0 && (
                         <span className="text-sm line-through text-muted-foreground">KSH {oldPrice.toLocaleString()}</span>
                       )}
                     </div>

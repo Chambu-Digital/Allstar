@@ -106,10 +106,10 @@ function ProductTile({ product, index }: { product: IProduct; index: number }) {
           <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: ORANGE }}>Quick View →</span>
         </div>
       </div>
-      <h3 className="text-xs font-medium text-slate-300 line-clamp-2 leading-snug mb-1.5 group-hover:text-orange-400 transition-colors duration-200">{product.name}</h3>
+      <h3 className="text-xs font-medium text-gray-700 line-clamp-2 leading-snug mb-1.5 group-hover:text-orange-500 transition-colors duration-200">{product.name}</h3>
       <div className="flex items-baseline gap-1.5">
-        <span className="text-sm font-bold text-white">KSh {price.toLocaleString()}</span>
-        {oldPrice && <span className="text-[11px] line-through text-slate-500">KSh {oldPrice.toLocaleString()}</span>}
+        <span className="text-sm font-bold text-gray-900">KSh {price.toLocaleString()}</span>
+        {oldPrice > 0 && <span className="text-[11px] line-through text-gray-400">KSh {oldPrice.toLocaleString()}</span>}
       </div>
     </Link>
   )

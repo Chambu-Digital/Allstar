@@ -124,7 +124,7 @@ export default function ProductVariations({
                       <span className="font-bold text-primary">
                         KSH {variant.price}
                       </span>
-                      {variant.oldPrice && (
+                      {variant.oldPrice > 0 && (
                         <span className="text-xs line-through text-muted-foreground">
                           KSH {variant.oldPrice}
                         </span>
@@ -180,7 +180,7 @@ export default function ProductVariations({
                 <span className="text-lg font-bold text-primary">
                   KSH {selectedVariant.price}
                 </span>
-                {selectedVariant.oldPrice && (
+                {selectedVariant.oldPrice > 0 && (
                   <span className="text-sm line-through text-muted-foreground">
                     KSH {selectedVariant.oldPrice}
                   </span>

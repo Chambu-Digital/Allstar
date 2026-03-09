@@ -166,9 +166,11 @@ export default function FlashDealsSection() {
                         className="w-full h-44 md:h-52 object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                       {/* Discount Badge */}
-                      <div className="absolute top-2 right-2 bg-gradient-to-br from-red-500 to-pink-600 text-white px-2.5 py-1 rounded-full text-xs font-black shadow-lg">
-                        -{dealDiscount}%
-                      </div>
+                      {dealDiscount > 0 && (
+                        <div className="absolute top-2 right-2 bg-gradient-to-br from-red-500 to-pink-600 text-white px-2.5 py-1 rounded-full text-xs font-black shadow-lg">
+                          -{dealDiscount}%
+                        </div>
+                      )}
                     </div>
 
                     {/* Content */}
@@ -181,16 +183,6 @@ export default function FlashDealsSection() {
                         <span className="text-lg md:text-xl font-black text-blue-600">
                           KSH {dealPrice.toLocaleString()}
                         </span>
-                        {dealOldPrice && (
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs line-through text-gray-400">
-                              KSH {dealOldPrice.toLocaleString()}
-                            </span>
-                            <span className="text-xs text-green-600 font-semibold">
-                              Save {dealDiscount}%
-                            </span>
-                          </div>
-                        )}
                       </div>
                     </div>
                   </div>

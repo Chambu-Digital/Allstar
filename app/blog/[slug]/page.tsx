@@ -310,7 +310,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                           <span className="text-lg font-bold text-primary">
                             KSH {price.toLocaleString()}
                           </span>
-                          {oldPrice && (
+                          {oldPrice > 0 && (
                             <span className="text-sm text-muted-foreground line-through">
                               KSH {oldPrice.toLocaleString()}
                             </span>

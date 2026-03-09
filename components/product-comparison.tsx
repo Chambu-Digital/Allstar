@@ -187,7 +187,7 @@ export default function ProductComparison({ isOpen, onClose, productIds }: Produ
                       }`}>
                         {product.inStock ? 'In Stock' : 'Out of Stock'}
                       </span>
-                      {product.stockQuantity && product.stockQuantity <= 5 && product.inStock && (
+                      {product.stockQuantity > 0 && product.stockQuantity <= 5 && product.inStock && (
                         <div className="text-xs text-orange-600 mt-1">
                           Only {product.stockQuantity} left
                         </div>

@@ -130,7 +130,7 @@ export default function AllProductsSection() {
                       <span className="text-base font-bold text-primary">
                         KSH {price}
                     </span>
-                      {oldPrice && (
+                      {oldPrice > 0 && (
                         <span className="text-sm line-through text-muted-foreground">
                           KSH {oldPrice}
                         </span>

@@ -80,7 +80,7 @@ function ProductTile({ product, index }: { product: IProduct; index: number }) {
       </h3>
       <div className="flex items-baseline gap-1.5">
         <span className="text-sm font-bold text-white">KSh {price.toLocaleString()}</span>
-        {oldPrice && (
+        {oldPrice > 0 && (
           <span className="text-[11px] line-through text-slate-500">KSh {oldPrice.toLocaleString()}</span>
         )}
       </div>
@@ -130,7 +130,7 @@ function DealTile({ product }: { product: IProduct }) {
       </h3>
       <div className="flex items-baseline gap-1.5">
         <span className="text-sm font-bold text-white">KSh {price.toLocaleString()}</span>
-        {oldPrice && <span className="text-[11px] line-through text-slate-500">KSh {oldPrice.toLocaleString()}</span>}
+        {oldPrice > 0 && <span className="text-[11px] line-through text-slate-500">KSh {oldPrice.toLocaleString()}</span>}
       </div>
     </Link>
   )
