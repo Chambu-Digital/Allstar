@@ -117,9 +117,7 @@ export default function Header() {
 
             {/* Auth */}
             {user ? (
-              <Link href="/account">
-                <InfoLink href="/account" icon={<User className="w-3 h-3" />} label="My Account" />
-              </Link>
+              <InfoLink href="/account" icon={<User className="w-3 h-3" />} label="My Account" />
             ) : (
               <Link href="/account/login"
                 className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold text-white transition-all hover:scale-105"
@@ -380,14 +378,18 @@ function HoverIconBtn({ children, onClick, active = false, className = '' }: {
   const isActive = active || hovered
   // NOTE: we use className for responsive visibility (md:hidden / lg:hidden).
   // Do NOT set display via inline style — that would override Tailwind breakpoint classes.
+  
+  // Check if this is mobile by checking if className contains 'md:hidden' or 'lg:hidden'
+  const isMobileOnly = className.includes('md:hidden') || className.includes('lg:hidden')
+  
   return (
     <button
       onClick={onClick}
-      className={`items-center justify-center flex-shrink-0 ${className}`}
+      className={`flex items-center justify-center flex-shrink-0 ${className}`}
       style={{
         width: 44, height: 44, borderRadius: 12,
         background: isActive ? T.orangePale : T.offWhite,
-        border: `2px solid ${isActive ? T.orange : T.stone200}`,
+        border: isMobileOnly ? 'none' : `2px solid ${isActive ? T.orange : T.stone200}`,
         transition: 'all 0.2s ease', cursor: 'pointer',
       }}
       onMouseEnter={() => setHovered(true)}

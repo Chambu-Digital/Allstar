@@ -1,6 +1,6 @@
 'use client'
 
-import { Mail, Phone, MapPin, Clock, MessageCircle, ArrowRight, Shield, Truck, Star, Zap } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, MessageCircle, ArrowRight, Shield, Truck, Star, Zap, Instagram, Facebook } from 'lucide-react'
 import Link from 'next/link'
 import { companyInfo, getWhatsAppLink, getPhoneLink, getEmailLink } from '@/lib/company-info'
 
@@ -89,6 +89,24 @@ export default function Footer() {
               <p className="text-sm leading-relaxed" style={{ color:T.stone400 }}>
                 Your trusted partner for premium computers, laptops, and cutting-edge electronics in Kenya. Quality products, exceptional service.
               </p>
+
+              {/* Social Media Links */}
+              <div className="flex items-center gap-3">
+                <a href="https://www.instagram.com/allstar_tech_computer/" target="_blank" rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110"
+                  style={{ background:'rgba(249,115,22,0.12)', color:T.orange }}
+                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.background='rgba(249,115,22,0.25)'}
+                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.background='rgba(249,115,22,0.12)'}>
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="https://www.facebook.com/ALLstar490/about/" target="_blank" rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110"
+                  style={{ background:'rgba(249,115,22,0.12)', color:T.orange }}
+                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.background='rgba(249,115,22,0.25)'}
+                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.background='rgba(249,115,22,0.12)'}>
+                  <Facebook className="w-5 h-5" />
+                </a>
+              </div>
 
               {/* WhatsApp CTA */}
               <a href={getWhatsAppLink()} target="_blank" rel="noopener noreferrer"
