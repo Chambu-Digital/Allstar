@@ -310,7 +310,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
               value={formData.description}
               onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Describe your product, its benefits, and how to use it..."
+              placeholder="Describe your product, its features, specifications, and what makes it great..."
             />
           </div>
         </div>
@@ -332,7 +332,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
             <label htmlFor="hasVariants" className="ml-2 block text-sm font-medium text-gray-900">
-              This product has variants (different sizes, colors, etc.)
+              This product has variants (different storage, RAM, colors, etc.)
             </label>
           </div>
           
@@ -461,7 +461,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
             /* Variant Management */
             <div>
               <p className="text-sm text-gray-600 mb-4">
-                Manage variants for this product. Each variant can have its own price, image, and stock level.
+                Manage variants for this product (e.g., 256GB/512GB storage, 8GB/16GB RAM, different colors). Each variant can have its own price, image, and stock level.
               </p>
               <VariantManager
                 variants={formData.variants}

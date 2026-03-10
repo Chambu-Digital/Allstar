@@ -75,24 +75,29 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-orange-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            ALLSTAR TECH
+          <Link href="/" className="inline-block mb-4">
+            <img 
+              src="/allstar-logo.svg" 
+              alt="Allstar Tech" 
+              className="h-16 w-auto mx-auto"
+            />
           </Link>
-          <p className="text-slate-400 mt-2">Admin Portal</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Admin Portal</h1>
+          <p className="text-sm text-gray-600">Sign in to access the admin dashboard</p>
         </div>
 
-        <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur">
+        <Card className="shadow-xl border-0 bg-white">
           <CardHeader className="space-y-1 text-center">
-            <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mb-4 shadow-lg shadow-blue-500/30">
+            <div className="mx-auto w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mb-4 shadow-lg shadow-orange-500/30">
               <Shield className="w-6 h-6 text-white" />
             </div>
-            <CardTitle className="text-2xl font-bold">Admin Login</CardTitle>
-            <CardDescription>
-              Sign in to access the admin dashboard
+            <CardTitle className="text-2xl font-bold text-gray-900">Admin Login</CardTitle>
+            <CardDescription className="text-gray-600">
+              Enter your credentials to continue
             </CardDescription>
           </CardHeader>
           
@@ -112,7 +117,7 @@ export default function AdminLoginPage() {
                     id="email"
                     type="email"
                     placeholder="admin@allstar.co.ke"
-                    className="pl-10 focus-visible:ring-blue-500"
+                    className="pl-10 focus-visible:ring-orange-500"
                     {...register('email')}
                   />
                 </div>
@@ -129,7 +134,7 @@ export default function AdminLoginPage() {
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Enter admin password"
-                    className="pl-10 pr-10 focus-visible:ring-blue-500"
+                    className="pl-10 pr-10 focus-visible:ring-orange-500"
                     {...register('password')}
                   />
                   <Button
@@ -153,7 +158,7 @@ export default function AdminLoginPage() {
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white shadow-lg shadow-blue-500/30"
+                className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg shadow-orange-500/30"
                 disabled={isSubmitting || isLoading}
               >
                 {isSubmitting || isLoading ? (
@@ -171,30 +176,30 @@ export default function AdminLoginPage() {
             </form>
 
             <div className="mt-6 text-center space-y-2">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-600">
                 Forgot your password?{' '}
                 <button
                   type="button"
                   onClick={() => setShowSimpleReset(true)}
-                  className="text-blue-600 font-medium hover:text-cyan-600 hover:underline transition-colors"
+                  className="text-orange-600 font-medium hover:text-orange-700 hover:underline transition-colors"
                 >
                   Reset Password
                 </button>
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-600">
                 Don't have admin access?{' '}
                 <Link
                   href="/admin/register"
-                  className="text-blue-600 font-medium hover:text-cyan-600 hover:underline transition-colors"
+                  className="text-orange-600 font-medium hover:text-orange-700 hover:underline transition-colors"
                 >
                   Request Access
                 </Link>
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-600">
                 Need customer access?{' '}
                 <Link
                   href="/account/login"
-                  className="text-blue-600 font-medium hover:text-cyan-600 hover:underline transition-colors"
+                  className="text-orange-600 font-medium hover:text-orange-700 hover:underline transition-colors"
                 >
                   Customer Login
                 </Link>
@@ -206,7 +211,7 @@ export default function AdminLoginPage() {
         <div className="mt-8 text-center">
           <Link
             href="/"
-            className="text-sm text-slate-400 hover:text-blue-400 transition-colors"
+            className="text-sm text-gray-600 hover:text-orange-600 transition-colors"
           >
             ← Back to store
           </Link>

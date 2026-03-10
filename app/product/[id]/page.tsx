@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, use } from 'react'
-import { Star, ShoppingCart, Heart, ChevronDown, ChevronRight, Package, RotateCcw, Shield, Truck } from 'lucide-react'
+import { Star, ShoppingCart, Heart, ChevronDown, ChevronRight, Package, RotateCcw, Shield, Truck, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
@@ -14,6 +14,9 @@ import { IProduct, IVariant } from '@/models/Product'
 import { useCartStore } from '@/lib/cart-store'
 import { getProductDisplayPrice, getProductDisplayImage, calculateVariantPricing } from '@/lib/product-utils'
 import { useToast } from '@/components/ui/custom-toast'
+import { sendWhatsAppMessage } from '@/lib/whatsapp-service'
+import { useUserStore } from '@/lib/user-store'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 // ── Accordion component ──────────────────────────────────────────────────────
@@ -49,6 +52,7 @@ function TrustBadge({ icon: Icon, label }: { icon: React.ElementType; label: str
 
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params)
+  const router = useRouter()
   const [quantity, setQuantity] = useState(1)
   const [selectedVariant, setSelectedVariant] = useState<IVariant | null>(null)
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
@@ -61,6 +65,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   const [realRating, setRealRating] = useState(0)
   const [realReviewCount, setRealReviewCount] = useState(0)
   const { addItem } = useCartStore()
+  const { user } = useUserStore()
   const toast = useToast()
 
   useEffect(() => {
@@ -161,6 +166,39 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
       setAddingToCart(false)
       toast.success(`${product.name}${variantName ? ` (${variantName})` : ''} added to cart!`)
     }, 500)
+  }
+
+  const handleWhatsAppOrder = () => {
+    if (!product) return
+    
+    // Check if user is authenticated
+    if (!user) {
+      toast.error('Please sign in to order via WhatsApp')
+      // Redirect to login with return URL
+      router.push(`/account/login?returnTo=${encodeURIComponent(window.location.pathname)}`)
+      return
+    }
+    
+    const currentPrice = selectedVariant ? selectedVariant.price : getProductDisplayPrice(product).price
+    const variantInfo = selectedVariant ? ` (${selectedVariant.value})` : ''
+    const productUrl = window.location.href
+    
+    const message = `Hello! I'm interested in ordering:
+
+Product: ${product.name}${variantInfo}
+Quantity: ${quantity}
+Price: KSH ${(currentPrice * quantity).toLocaleString()}
+
+Customer: ${user.firstName} ${user.lastName}
+Email: ${user.email}
+
+Product Link: ${productUrl}
+
+Please confirm availability and provide payment details.
+
+Thank you!`
+    
+    sendWhatsAppMessage(message)
   }
 
   const getCurrentStock = () => selectedVariant ? selectedVariant.stock : product?.stockQuantity || 0
@@ -291,7 +329,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                     <span className="text-3xl font-black text-gray-900">KSH {pricing.unitPrice}</span>
                     <span className="text-sm text-gray-400">per unit</span>
                     {pricing.isWholesale && (
-                      <span className="text-xs font-bold bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-2.5 py-1 rounded-full">
+                      <span className="text-xs font-bold bg-gradient-to-r from-orange-600 to-orange-500 text-white px-2.5 py-1 rounded-full">
                         Wholesale 🎉
                       </span>
                     )}
@@ -312,7 +350,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
                 {/* Wholesale upsell / savings banner */}
                 {pricing?.hasWholesale && !pricing.isWholesale && selectedVariant && (
-                  <div className="mt-3 flex items-center gap-2 text-xs text-blue-700 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
+                  <div className="mt-3 flex items-center gap-2 text-xs text-orange-700 bg-orange-50 border border-orange-100 rounded-lg px-3 py-2">
                     <Package className="w-3.5 h-3.5 flex-shrink-0" />
                     <span>Buy <strong>{pricing.wholesaleThreshold}+</strong> units for <strong>KSH {pricing.wholesalePrice}</strong> each — save {Math.round(((selectedVariant.price - pricing.wholesalePrice) / selectedVariant.price) * 100)}%</span>
                   </div>
@@ -356,7 +394,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                         onClick={() => setQuantity(val)}
                         className={`px-3 py-1 text-xs rounded-lg border font-medium transition-all ${
                           quantity === val
-                            ? 'border-blue-500 bg-blue-50 text-blue-700'
+                            ? 'border-orange-500 bg-orange-50 text-orange-700'
                             : val >= wholesaleThreshold
                               ? 'border-green-200 bg-green-50 text-green-700 hover:border-green-400'
                               : 'border-gray-200 text-gray-600 hover:border-gray-400'
@@ -384,7 +422,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                         <span>{quantity}/{wholesaleThreshold}</span>
                       </div>
                       <div className="w-full bg-gray-100 rounded-full h-1.5">
-                        <div className="bg-gradient-to-r from-blue-500 to-cyan-400 h-1.5 rounded-full transition-all duration-300" style={{ width: `${wholesaleProgress}%` }} />
+                        <div className="bg-gradient-to-r from-orange-500 to-orange-400 h-1.5 rounded-full transition-all duration-300" style={{ width: `${wholesaleProgress}%` }} />
                       </div>
                     </div>
                   )}
@@ -392,27 +430,38 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
               </div>
 
               {/* CTA buttons */}
-              <div className="flex gap-3">
-                <Button
-                  onClick={handleAddToCart}
-                  disabled={addingToCart || !inStock}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white py-6 text-sm font-bold rounded-xl shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-200 disabled:opacity-50"
-                >
-                  <ShoppingCart className="w-4 h-4 mr-2" />
-                  {addingToCart ? 'Adding…' : !inStock ? 'Out of Stock' : 'Add to Cart'}
-                </Button>
+              <div className="flex flex-col gap-3">
+                <div className="flex gap-3">
+                  <Button
+                    onClick={handleAddToCart}
+                    disabled={addingToCart || !inStock}
+                    className="flex-1 bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white py-6 text-sm font-bold rounded-xl shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 transition-all duration-200 disabled:opacity-50"
+                  >
+                    <ShoppingCart className="w-4 h-4 mr-2" />
+                    {addingToCart ? 'Adding…' : !inStock ? 'Out of Stock' : 'Add to Cart'}
+                  </Button>
 
-                <button
-                  onClick={() => setIsFavorite(!isFavorite)}
-                  className={`w-14 h-14 rounded-xl border-2 flex items-center justify-center transition-all duration-200 ${
-                    isFavorite
-                      ? 'border-red-200 bg-red-50 text-red-500'
-                      : 'border-gray-200 text-gray-400 hover:border-gray-300 hover:text-gray-600'
-                  }`}
-                  aria-label="Add to favorites"
+                  <button
+                    onClick={() => setIsFavorite(!isFavorite)}
+                    className={`w-14 h-14 rounded-xl border-2 flex items-center justify-center transition-all duration-200 ${
+                      isFavorite
+                        ? 'border-red-200 bg-red-50 text-red-500'
+                        : 'border-gray-200 text-gray-400 hover:border-gray-300 hover:text-gray-600'
+                    }`}
+                    aria-label="Add to favorites"
+                  >
+                    <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500' : ''}`} />
+                  </button>
+                </div>
+
+                <Button
+                  onClick={handleWhatsAppOrder}
+                  disabled={!inStock}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white py-6 text-sm font-bold rounded-xl shadow-lg shadow-green-500/20 hover:shadow-green-500/30 transition-all duration-200 disabled:opacity-50"
                 >
-                  <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500' : ''}`} />
-                </button>
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Order via WhatsApp
+                </Button>
               </div>
 
               {/* Trust badges */}
@@ -436,7 +485,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                     <ul className="space-y-2">
                       {product.benefits.map((b, i) => (
                         <li key={i} className="flex items-start gap-2">
-                          <span className="text-blue-500 font-bold mt-0.5">✓</span>
+                          <span className="text-orange-500 font-bold mt-0.5">✓</span>
                           <span>{b}</span>
                         </li>
                       ))}

@@ -1,9 +1,14 @@
-<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Icon -->
-  <circle cx="25" cy="25" r="20" fill="#0d9488"/>
-  <path d="M25 10 L30 20 L40 20 L32 27 L35 37 L25 30 L15 37 L18 27 L10 20 L20 20 Z" fill="white"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" fill="none">
+  <rect width="800" height="300" fill="#FF8C00"/>
+  <g transform="translate(130, 110)">
+    <!-- Speed lines icon -->
+    <rect x="0" y="0" width="60" height="12" rx="6" fill="white"/>
+    <rect x="0" y="30" width="80" height="12" rx="6" fill="white"/>
+    <rect x="0" y="60" width="60" height="12" rx="6" fill="white"/>
+  </g>
+  <!-- Vertical divider -->
+  <rect x="310" y="100" width="4" height="100" fill="white"/>
   <!-- Text -->
-  <text x="50" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#0d9488">ALLSTAR</text>
-  <text x="50" y="45" font-family="Arial, sans-serif" font-size="12" font-weight="normal" fill="#f97316">TECH</text>
+  <text x="350" y="160" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" letter-spacing="8">ALLSTAR</text>
+  <text x="350" y="230" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" letter-spacing="8">TECH</text>
 </svg>

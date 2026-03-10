@@ -35,21 +35,26 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-green-50 to-emerald-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-orange-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 text-2xl font-bold text-primary">
-            Allstar Tech
+          <Link href="/" className="inline-block mb-4">
+            <img 
+              src="/allstar-logo.svg" 
+              alt="Allstar Tech" 
+              className="h-16 w-auto mx-auto"
+            />
           </Link>
-          <p className="text-muted-foreground mt-2">Create your account to get started</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Create Account</h1>
+          <p className="text-sm text-gray-600">Join us to get started</p>
         </div>
 
-        <Card className="shadow-lg border-0">
+        <Card className="shadow-xl border-0 bg-white">
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
-            <CardDescription>
-              Join us with your Google account and enjoy the best electronic products you need.
+            <CardTitle className="text-xl font-semibold text-gray-900">Welcome to Allstar Tech</CardTitle>
+            <CardDescription className="text-gray-600">
+              Sign up with your Google account and enjoy the best electronic products you need.
             </CardDescription>
           </CardHeader>
           
@@ -67,11 +72,11 @@ export default function RegisterPage() {
             />
 
             <div className="mt-6 text-center">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-600">
                 Already have an account?{' '}
                 <Link
                   href="/account/login"
-                  className="text-primary font-medium hover:underline"
+                  className="text-orange-600 hover:text-orange-700 font-medium hover:underline transition-colors"
                 >
                   Sign in here
                 </Link>
@@ -83,7 +88,7 @@ export default function RegisterPage() {
         <div className="mt-8 text-center">
           <Link
             href="/"
-            className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            className="text-sm text-gray-600 hover:text-orange-600 transition-colors"
           >
             ← Back to store
           </Link>

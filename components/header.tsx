@@ -525,18 +525,37 @@ function DesktopSearch({ searchQuery, searchResults, showResults, searchLoading,
 // ─── Breadcrumb ───────────────────────────────────────────────────────────────
 function BreadcrumbNav() {
   const pathname = usePathname()
+  const [productName, setProductName] = useState<string | null>(null)
+  
   if (pathname === '/') return null
+
+  // Fetch product name if on product page
+  useEffect(() => {
+    const segments = pathname.split('/').filter(Boolean)
+    if (segments[0] === 'product' && segments[1]) {
+      fetch(`/api/products/${segments[1]}`)
+        .then(res => res.json())
+        .then(data => setProductName(data.name))
+        .catch(() => setProductName(null))
+    }
+  }, [pathname])
 
   const routeNames: Record<string, string> = {
     products: 'All Products', about: 'About Us', contact: 'Contact Us',
     testimonials: 'Customer Reviews', blog: 'Blog', account: 'My Account',
-    cart: 'Shopping Cart', checkout: 'Checkout',
+    cart: 'Shopping Cart', checkout: 'Checkout', product: 'Product',
   }
   const segments = pathname.split('/').filter(Boolean)
-  const crumbs   = segments.map((seg, i) => ({
-    label: routeNames[seg] || seg.charAt(0).toUpperCase() + seg.slice(1),
-    href:  '/' + segments.slice(0, i + 1).join('/'),
-  }))
+  const crumbs   = segments.map((seg, i) => {
+    // If this is a product ID (second segment after 'product'), use the fetched name
+    if (i === 1 && segments[0] === 'product' && productName) {
+      return { label: productName, href: '/' + segments.slice(0, i + 1).join('/') }
+    }
+    return {
+      label: routeNames[seg] || seg.charAt(0).toUpperCase() + seg.slice(1),
+      href:  '/' + segments.slice(0, i + 1).join('/'),
+    }
+  })
 
   return (
     <div style={{ background: T.offWhite, borderTop: `1px solid ${T.stone200}` }}>

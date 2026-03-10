@@ -5,7 +5,7 @@ import { Star } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { IProduct } from '@/models/Product'
-import { getProductDisplayImage, getProductDisplayPrice, getWholesaleInfo } from '@/lib/product-utils'
+import { getProductDisplayImage, getProductDisplayPrice } from '@/lib/product-utils'
 
 interface RelatedProductsProps {
   currentProductId: string
@@ -39,6 +39,7 @@ export default function RelatedProducts({ currentProductId, category }: RelatedP
       setLoading(false)
     }
   }
+  
   return (
     <section className="mb-12">
       <h2 className="text-2xl md:text-3xl font-bold mb-8 text-foreground text-balance">
@@ -82,7 +83,7 @@ export default function RelatedProducts({ currentProductId, category }: RelatedP
                       className="w-full h-full object-cover hover:scale-105 transition"
                     />
                     {hasWholesale && (
-                      <div className="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+                      <div className="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-medium">
                         Bulk Available
                       </div>
                     )}
@@ -113,9 +114,11 @@ export default function RelatedProducts({ currentProductId, category }: RelatedP
                           />
                         ))}
                     </div>
-                    <span className="text-xs text-muted-foreground">
-                      ({product.reviews})
-                    </span>
+                    {product.reviews > 0 && (
+                      <span className="text-xs text-muted-foreground">
+                        ({product.reviews})
+                      </span>
+                    )}
                   </div>
 
                   <div className="flex items-center gap-2 mb-4">
